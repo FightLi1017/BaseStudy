@@ -11,7 +11,11 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Colum {
+public @interface Column {
     boolean id() default false;
     String name()default "";
+    ColumnType type() default  ColumnType.UNKNOWM;
+    public enum ColumnType{
+        TONE,TMANY,Serializable,UNKNOWM
+    }
 }

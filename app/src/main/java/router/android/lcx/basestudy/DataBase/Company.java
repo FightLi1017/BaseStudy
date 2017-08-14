@@ -1,14 +1,23 @@
 package router.android.lcx.basestudy.DataBase;
 
+
+import router.android.lcx.basestudy.DataBase.Annotation.Column;
+import router.android.lcx.basestudy.DataBase.Annotation.Table;
+
 /**
  * Created by lichenxi on 2017/4/6.
  */
-
-public class Company {
+@Table(name = "company")
+public class Company extends BasePeople {
+    @Column
     private String name;
+    @Column
     private String id;
+    @Column
     private String url;
+    @Column
     private String tel;
+    @Column
     private String address;
 
     public String getName() {

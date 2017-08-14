@@ -2,20 +2,39 @@ package router.android.lcx.basestudy.DataBase;
 
 import java.util.ArrayList;
 
+import router.android.lcx.basestudy.DataBase.Annotation.Column;
+import router.android.lcx.basestudy.DataBase.Annotation.Table;
+
 /**
  * Created by lichenxi on 2017/4/6.
  */
-
-public class Developer {
+@Table(name = "developer")
+public class Developer extends BasePeople  {
     public static final String _ID="id";
     public static final String _NAME="name";
     public static final String _AGE="age";
-    public static final String _COMPANY="company";
-    public static final String _SKILLS="skills";
+//    public static final String _COMPANY="company";
+//    public static final String _SKILLS="skills";
+    @Column(id = true)
     private String id;
+
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", mSkill=" + mSkill +
+                '}';
+    }
+
+    @Column
     private String name;
+    @Column
     private  int age;
-    private Company mCompany;
+//    @Column(type = Column.ColumnType.TONE)
+//    private Company mCompany;
+    @Column(type = Column.ColumnType.Serializable)
     private ArrayList<Skill> mSkill;
 
     public int getAge() {
@@ -42,13 +61,13 @@ public class Developer {
         this.id = id;
     }
 
-    public Company getCompany() {
-        return mCompany;
-    }
-
-    public void setCompany(Company company) {
-        mCompany = company;
-    }
+//    public Company getCompany() {
+//        return mCompany;
+//    }
+//
+//    public void setCompany(Company company) {
+//        mCompany = company;
+//    }
 
     public ArrayList<Skill> getSkill() {
         return mSkill;

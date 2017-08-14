@@ -2,7 +2,8 @@ package router.android.lcx.basestudy.Test;
 
 import java.lang.reflect.Field;
 
-import router.android.lcx.basestudy.DataBase.Annotation.Colum;
+
+import router.android.lcx.basestudy.DataBase.Annotation.Column;
 import router.android.lcx.basestudy.DataBase.Annotation.Table;
 
 
@@ -21,8 +22,8 @@ public class Test {
             System.out.println(clz.getSimpleName()+"----table:"+table.name());
             Field[] fields=clz.getDeclaredFields();
             for (Field field: fields) {
-                if (field.isAnnotationPresent(Colum.class)){
-                      Colum colum=field.getAnnotation(Colum.class);
+                if (field.isAnnotationPresent(Column.class)){
+                      Column colum=field.getAnnotation(Column.class);
                       field.setAccessible(true);
                     System.out.println(clz.getSimpleName()+"."+field.getName()+"----"+table.name()+colum.name()+":"+field.get(de).toString());
                 }else {

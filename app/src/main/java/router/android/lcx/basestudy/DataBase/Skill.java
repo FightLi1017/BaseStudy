@@ -4,9 +4,18 @@ package router.android.lcx.basestudy.DataBase;
  * Created by lichenxi on 2017/4/6.
  */
 
-public class Skill {
+public class Skill extends BasePeople {
     private String name;
     private String descript;
+
+
+    @Override
+    public String toString() {
+        return "Skill{" +
+                "name='" + name + '\'' +
+                ", descript='" + descript + '\'' +
+                '}';
+    }
 
     public String getName() {
         return name;

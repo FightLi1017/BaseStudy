@@ -1,6 +1,7 @@
 package router.android.lcx.basestudy.Test;
 
-import router.android.lcx.basestudy.DataBase.Annotation.Colum;
+
+import router.android.lcx.basestudy.DataBase.Annotation.Column;
 import router.android.lcx.basestudy.DataBase.Annotation.Table;
 
 
@@ -10,9 +11,9 @@ import router.android.lcx.basestudy.DataBase.Annotation.Table;
 
 @Table(name = "developer")
 public class Developer1 {
-   @Colum
+   @Column
     private String name;
-    @Colum(id = true)
+    @Column(id = true)
     private String id;
 
     public String getId() {
