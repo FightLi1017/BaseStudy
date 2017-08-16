@@ -1,15 +1,23 @@
 package fight.android.lcx.downmanager;
 
+import android.os.Handler;
+import android.os.Message;
+
 /**
  * Created by lichenxi on 2017/8/13.
  */
 
 public class DownLoadTask implements Runnable{
-   private DownEntry mentry;
+   private DownEntry mDownEntry;
    private boolean ispause;
     private boolean iscancel;
+    private Handler mHandler;
     public DownLoadTask(DownEntry entry) {
-        this.mentry=entry;
+        this.mDownEntry=entry;
+    }
+    public DownLoadTask(DownEntry entry, Handler handler) {
+        this.mDownEntry=entry;
+        this.mHandler=handler;
     }
 
     public void pause() {
@@ -24,25 +32,31 @@ public class DownLoadTask implements Runnable{
 
 
     public void start() {
-        mentry.mDownloadStatus= DownEntry.DownloadStatus.downloading;
-        DataChange.getinstance().postStatus(mentry);
-        mentry.totallength=1024*100;
-        for (int i=mentry.currentlength;i<mentry.totallength;i+=1024){
+        mDownEntry.mDownloadStatus= DownEntry.DownloadStatus.downloading;
+        mDownEntry.totallength=1024*20;
+        sendmsg();
+        for (int i=mDownEntry.currentlength;i<mDownEntry.totallength;i+=1024){
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if (ispause || iscancel){
-               mentry.mDownloadStatus=ispause? DownEntry.DownloadStatus.pause: DownEntry.DownloadStatus.cancel;
-               DataChange.getinstance().postStatus(mentry);
+                mDownEntry.mDownloadStatus=ispause? DownEntry.DownloadStatus.paused: DownEntry.DownloadStatus.cancel;
+                sendmsg();
                 return;
             }
-            mentry.currentlength+=1024;
-            DataChange.getinstance().postStatus(mentry);
+            mDownEntry.currentlength+=1024;
+            sendmsg();
         }
-        mentry.mDownloadStatus= DownEntry.DownloadStatus.complete;
-        DataChange.getinstance().postStatus(mentry);
+        mDownEntry.mDownloadStatus= DownEntry.DownloadStatus.complete;
+        sendmsg();
+    }
+
+    private void sendmsg() {
+        Message msg=mHandler.obtainMessage();
+        msg.obj=mDownEntry;
+        mHandler.sendMessage(msg);
     }
 
     @Override

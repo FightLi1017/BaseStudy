@@ -2,7 +2,9 @@ package fight.android.lcx.downmanager;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.annotation.Nullable;
 
 import java.util.HashMap;
@@ -18,6 +20,13 @@ public class DownLoadService extends Service {
     private HashMap<String,DownLoadTask> mDownLoadTasks=new HashMap<>();
     private ExecutorService mExecutors;
 
+    private Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            DataChange.getinstance().postStatus((DownEntry) msg.obj);
+        }
+    };
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -75,7 +84,7 @@ public class DownLoadService extends Service {
     }
 
     private void startDownload(DownEntry entry) {
-        DownLoadTask task=new DownLoadTask(entry);
+        DownLoadTask task=new DownLoadTask(entry,mHandler);
         mDownLoadTasks.put(entry.url,task);
         mExecutors.execute(task);
     }

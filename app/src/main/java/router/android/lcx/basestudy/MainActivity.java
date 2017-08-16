@@ -58,10 +58,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (downEntry==null){
-            downEntry=new DownEntry();
-            downEntry.id="1";
-            downEntry.name="test.jpg";
-            downEntry.url="http://www.baidu.com";
+            downEntry=new DownEntry("http://www.baidu.com");
         }
 
         switch (v.getId()){
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             case R.id.button2:
                 if (downEntry.mDownloadStatus== DownEntry.DownloadStatus.downloading){
                     mDownManager.pause(downEntry);
-                }else if (downEntry.mDownloadStatus== DownEntry.DownloadStatus.pause){
+                }else if (downEntry.mDownloadStatus== DownEntry.DownloadStatus.paused){
                     mDownManager.resume(downEntry);
                 }
 
