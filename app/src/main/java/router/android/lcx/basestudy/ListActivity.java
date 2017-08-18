@@ -54,6 +54,12 @@ public class ListActivity extends AppCompatActivity {
         mDownloadLsv = (ListView) findViewById(R.id.mDownloadLsv);
         adapter = new DownloadAdapter();
         mDownloadLsv.setAdapter(adapter);
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDownloadManager.pauseAll();
+            }
+        });
     }
 
     @Override
@@ -107,7 +113,7 @@ public class ListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (entry.mDownloadStatus == DownEntry.DownloadStatus.idle) {
                         mDownloadManager.add(entry);
-                    } else if (entry.mDownloadStatus == DownEntry.DownloadStatus.downloading) {
+                    } else if (entry.mDownloadStatus == DownEntry.DownloadStatus.downloading ||entry.mDownloadStatus == DownEntry.DownloadStatus.waiting  ) {
                         mDownloadManager.pause(entry);
                     } else if (entry.mDownloadStatus == DownEntry.DownloadStatus.paused) {
                         mDownloadManager.resume(entry);

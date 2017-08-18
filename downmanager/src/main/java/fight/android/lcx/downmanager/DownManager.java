@@ -47,7 +47,18 @@ public class DownManager {
         intent.putExtra(Constants.KEY_DOWN_ACTION, Constants.KEY_DOWM_ACTION_CANCEL);
         mContext.startService(intent);
     }
-
+    public void pauseAll(){
+        Intent intent =new Intent(mContext,DownLoadService.class);
+//        intent.putExtra(Constants.DOWN_ENTRY,entry);
+        intent.putExtra(Constants.KEY_DOWN_ACTION, Constants.KEY_DOWM_ACTION_PAUSEALL);
+        mContext.startService(intent);
+    }
+    public void resumeAll(){
+        Intent intent =new Intent(mContext,DownLoadService.class);
+//        intent.putExtra(Constants.DOWN_ENTRY,entry);
+        intent.putExtra(Constants.KEY_DOWN_ACTION, Constants.KEY_DOWM_ACTION_RESUMEALL);
+        mContext.startService(intent);
+    }
     public void addObserver(DataWatcher dataWatcher){
         DataChange.getinstance().addObserver(dataWatcher);
     }

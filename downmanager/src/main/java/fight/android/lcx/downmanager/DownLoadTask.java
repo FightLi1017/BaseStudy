@@ -33,11 +33,11 @@ public class DownLoadTask implements Runnable{
 
     public void start() {
         mDownEntry.mDownloadStatus= DownEntry.DownloadStatus.downloading;
-        mDownEntry.totallength=1024*20;
+        mDownEntry.totallength=1024*10;
         sendmsg();
         for (int i=mDownEntry.currentlength;i<mDownEntry.totallength;i+=1024){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
