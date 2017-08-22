@@ -60,6 +60,12 @@ public class ListActivity extends AppCompatActivity {
                 mDownloadManager.pauseAll();
             }
         });
+        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDownloadManager.resumeAll();
+            }
+        });
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -86,10 +87,20 @@ public class DownLoadService extends Service {
                 pauseAllDownload();
                 break;
             case Constants.KEY_DOWM_ACTION_RESUMEALL:
-
+                 recoverAllDownload();
                 break;
 
         }
+    }
+
+    private void recoverAllDownload() {
+        ArrayList<DownEntry> mRecoverEntry=DataChange.getinstance().queryAllRecoverEntry();
+        if (mRecoverEntry!=null){
+            for (DownEntry entry:mRecoverEntry){
+                addDownLoad(entry);
+            }
+        }
+
     }
 
     private void pauseAllDownload() {

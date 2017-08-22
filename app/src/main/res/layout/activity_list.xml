@@ -21,10 +21,15 @@
 
            android:fadingEdge="none"/>
     <Button
-        android:text="Button"
+        android:text="pauseall"
         android:layout_width="185dp"
-        android:layout_height="wrap_content" android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" android:layout_marginEnd="311dp"
-        android:layout_marginBottom="450dp" android:id="@+id/button"/>
-
+        android:layout_height="wrap_content"
+         android:id="@+id/button"/>
+    <Button
+        android:layout_marginLeft="200dp"
+        android:text="resumeall"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button1"/>
 </FrameLayout>
