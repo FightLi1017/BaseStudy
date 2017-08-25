@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -20,7 +21,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 
 public class DownLoadService extends Service {
-    private HashMap<DownEntry,DownLoadTask> mDownLoadTasks=new HashMap<>();
+    private HashMap<DownEntry,DownLoadTask> mDownLoadTasks=new LinkedHashMap<>();
     private LinkedBlockingDeque<DownEntry> mWaitDownLoadQueue=new LinkedBlockingDeque();
     private ExecutorService mExecutors;
 
@@ -56,18 +57,19 @@ public class DownLoadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        DownEntry entry=(DownEntry) intent.getSerializableExtra(Constants.DOWN_ENTRY);
-        int action =intent.getIntExtra(Constants.KEY_DOWN_ACTION,-1);
-        doAction(action,entry);
-
-        return super.onStartCommand(intent, flags, startId);
+              if (intent!=null){
+                  DownEntry entry=(DownEntry) intent.getSerializableExtra(Constants.DOWN_ENTRY);
+                  int action =intent.getIntExtra(Constants.KEY_DOWN_ACTION,-1);
+                  doAction(action,entry);
+              }
+              return super.onStartCommand(intent, flags, startId);
 
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mExecutors=Executors.newCachedThreadPool();
+            mExecutors=Executors.newCachedThreadPool();
     }
 
     private void doAction(int action, DownEntry entry) {
@@ -84,7 +86,7 @@ public class DownLoadService extends Service {
             case Constants.KEY_DOWM_ACTION_CANCEL:
                   cancelDownload(entry);
             case Constants.KEY_DOWM_ACTION_PAUSEALL:
-                pauseAllDownload();
+                 pauseAllDownload();
                 break;
             case Constants.KEY_DOWM_ACTION_RESUMEALL:
                  recoverAllDownload();
@@ -94,21 +96,18 @@ public class DownLoadService extends Service {
     }
 
     private void recoverAllDownload() {
-        ArrayList<DownEntry> mRecoverEntry=DataChange.getinstance().queryAllRecoverEntry();
+        ArrayList<DownEntry> mRecoverEntry=DataChange.getinstance(this).queryAllRecoverEntry();
         if (mRecoverEntry!=null){
             for (DownEntry entry:mRecoverEntry){
-                addDownLoad(entry);
+                  addDownLoad(entry);
             }
         }
-
     }
-
     private void pauseAllDownload() {
-           for (Map.Entry<DownEntry,DownLoadTask> entry:mDownLoadTasks.entrySet()){
-                entry.getValue().pause();
-           }
-          mDownLoadTasks.clear();
-
+             for (Map.Entry<DownEntry,DownLoadTask> entry:mDownLoadTasks.entrySet()){
+                       entry.getValue().pause();
+             }
+        mDownLoadTasks.clear();
         while (mWaitDownLoadQueue.iterator().hasNext()){
             DownEntry entry=mWaitDownLoadQueue.poll();
             entry.mDownloadStatus= DownEntry.DownloadStatus.paused;
@@ -162,7 +161,7 @@ public class DownLoadService extends Service {
 
 
     private void notifyState(DownEntry entry) {
-        DataChange.getinstance().postStatus(entry);
+        DataChange.getinstance(this).postStatus(entry);
     }
 
     private void startDownload(DownEntry entry) {

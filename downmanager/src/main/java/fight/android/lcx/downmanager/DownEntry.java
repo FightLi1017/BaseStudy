@@ -11,9 +11,9 @@ public class DownEntry  implements Serializable{
     public String name;
     public String url;
     public DownEntry(String url) {
-               this.url = url;
-               this.id = url;
-                this.name = url.substring(url.lastIndexOf("/") + 1);
+        this.url = url;
+        this.id = url;
+        this.name = url.substring(url.lastIndexOf("/") + 1);
           }
     public enum  DownloadStatus{idle,waiting,downloading,paused,resume,cancel,complete}
 

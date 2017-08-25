@@ -1,5 +1,7 @@
 package fight.android.lcx.downmanager;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,18 +14,21 @@ import java.util.Observable;
 public class DataChange extends Observable {
     private static DataChange instance;
     private LinkedHashMap<String,DownEntry> mOperatorEntries;
-    private DataChange() {
+    private Context mContext;
+    private DataChange(Context context) {
+        this.mContext=context;
         mOperatorEntries=new LinkedHashMap<>();
     }
 
-     public static DataChange getinstance(){
+     public static DataChange getinstance(Context context){
          if (instance==null){
-             instance=new DataChange();
+             instance=new DataChange(context);
          }
          return instance;
      }
     public void postStatus(DownEntry downEntry){
          mOperatorEntries.put(downEntry.id,downEntry);
+         ACache.get(mContext).put(Constants.KEY_DOWN_DISK,mOperatorEntries);
          setChanged();
          notifyObservers(downEntry);
      }
@@ -38,5 +43,13 @@ public class DataChange extends Observable {
                  }
         }
         return mRecoverEntry;
+    }
+
+    public void updataOperator(LinkedHashMap<String, DownEntry> entries) {
+        mOperatorEntries=entries;
+    }
+
+    public DownEntry queryDownEntry(String id) {
+       return   mOperatorEntries.get(id);
     }
 }

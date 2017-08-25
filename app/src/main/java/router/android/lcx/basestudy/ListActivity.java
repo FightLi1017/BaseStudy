@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import fight.android.lcx.downmanager.ACache;
 import fight.android.lcx.downmanager.DataWatcher;
 import fight.android.lcx.downmanager.DownEntry;
 import fight.android.lcx.downmanager.DownManager;
@@ -51,6 +52,14 @@ public class ListActivity extends AppCompatActivity {
         mDownloadEntries.add(new DownEntry("http://api.stay4it.com/uploads/test7.jpg"));
         mDownloadEntries.add(new DownEntry("http://api.stay4it.com/uploads/test8.jpg"));
         mDownloadEntries.add(new DownEntry("http://api.stay4it.com/uploads/test9.jpg"));
+        for (int i=0;i<mDownloadEntries.size();i++){
+            DownEntry entry=mDownloadEntries.get(i);
+            DownEntry realentry=mDownloadManager.queryDownEntry(entry.id);
+            if (realentry!=null){
+                mDownloadEntries.remove(i);
+                mDownloadEntries.add(i,realentry);
+            }
+        }
         mDownloadLsv = (ListView) findViewById(R.id.mDownloadLsv);
         adapter = new DownloadAdapter();
         mDownloadLsv.setAdapter(adapter);
@@ -66,13 +75,18 @@ public class ListActivity extends AppCompatActivity {
                 mDownloadManager.resumeAll();
             }
         });
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ACache.get(ListActivity.this).clear();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mDownloadManager.addObserver(watcher);
-
     }
 
     @Override
