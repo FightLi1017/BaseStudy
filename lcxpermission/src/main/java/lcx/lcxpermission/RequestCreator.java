@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
@@ -16,10 +17,10 @@ import lcx.lcxpermission.Target.TargetAction;
  * Created by lichenxi on 2017/9/28.
  */
 
-public class RequestCreator {
+public class RequestCreator implements PermissionActivity.PermissionListener,PermissionActivity.RationaleListener{
      private TargetAction mTarget;
      private int requestCode;
-     private PermissionCallBack mPermissionCallBack;
+     private Object mPermissionObject;
      private String[] mPermissions;
     private String[] mDeniedPermissions;
      public RequestCreator(TargetAction target) {
@@ -30,8 +31,8 @@ public class RequestCreator {
         this.requestCode=requestCode;
         return  this;
     }
-    public  RequestCreator callBack(PermissionCallBack permissionCallBack){
-         mPermissionCallBack=permissionCallBack;
+    public  RequestCreator callBack(@NonNull Object object){
+        mPermissionObject=object;
         return this;
     }
    public RequestCreator Permissions(String...permissions){
@@ -43,7 +44,6 @@ public class RequestCreator {
               callbackSuccess();
        }
        else{
-        //// TODO: 2017/9/28  先检查还有哪些权限没有被申请 找出没有被申请的权限
            mDeniedPermissions= getDeniedPermission(mTarget.getContext(),mPermissions);
            if (mDeniedPermissions.length>0){
               //开始请求权限了    开启一个Activity或者什么的
@@ -58,23 +58,40 @@ public class RequestCreator {
     }
 
     private void callbackSuccess() {
-        if (mPermissionCallBack!=null){
-            if (mPermissionCallBack instanceof  PermissionCallBack){
-                mPermissionCallBack.permissionSuccess(requestCode);
+        if (mPermissionObject!=null){
+            if (mPermissionObject instanceof  PermissionCallBack){
+                ((PermissionCallBack)mPermissionObject).permissionSuccess(requestCode);
             }else{
                 //// TODO: 2017/9/28  注解写法
 
             }
-
         }
-
     }
+    private void callbackFailed(List<String> deniedList) {
+        if (mPermissionObject!=null){
+            if (mPermissionObject instanceof  PermissionCallBack){
+                ((PermissionCallBack)mPermissionObject).permissionFailed(requestCode,deniedList);
+            }else{
+                //// TODO: 2017/9/28  注解写法
 
+            }
+        }
+    }
     private String[] getDeniedPermission(Context context, String[] permissions) {
         ArrayList<String> dentist=new ArrayList<>(1);
         for (String permission: permissions)
           if (ContextCompat.checkSelfPermission(context,permission)!= PackageManager.PERMISSION_GRANTED)
               dentist.add(permission);
         return  dentist.toArray(new String[dentist.size()]);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
+
+    }
+
+    @Override
+    public void onRationaleResult(boolean showRationale) {
+
     }
 }

@@ -24,6 +24,6 @@ public class PermissionTestActivity extends AppCompatActivity {
             public void permissionFailed(int requestcode, List<String> deniedPermissions) {
 
             }
-        });
+        }).start();
     }
 }
