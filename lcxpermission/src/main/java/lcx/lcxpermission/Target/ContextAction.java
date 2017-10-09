@@ -1,5 +1,6 @@
 package lcx.lcxpermission.Target;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -15,16 +16,17 @@ public class ContextAction implements TargetAction {
 
     @Override
     public Context getContext() {
-        return null;
+        return mContext;
     }
 
     @Override
     public void startActivity(Intent intent) {
-
+        mContext.startActivity(intent);
     }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
-
+        if (mContext instanceof Activity) ((Activity) mContext).startActivityForResult(intent, requestCode);
+        else mContext.startActivity(intent);
     }
 }

@@ -1,14 +1,14 @@
 package lcx.lcxpermission;
 
+import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public final class PermissionActivity extends AppCompatActivity {
-     private String[] mDeniedPermissions;
+public final class PermissionActivity extends Activity {
+    private String[] mDeniedPermissions;
     private static RationaleListener mRationaleListener;
     private static PermissionListener mPermissionListener;
     public static  final String INPUT_PERMISSION="INPUT_PERMISSION";
@@ -45,6 +45,14 @@ public final class PermissionActivity extends AppCompatActivity {
 
         finish();
     }
+    public static void setRationaleListener(RationaleListener rationaleListener) {
+        mRationaleListener = rationaleListener;
+    }
+
+    public static void setPermissionListener(PermissionListener permissionListener) {
+        mPermissionListener = permissionListener;
+    }
+
     interface RationaleListener {
         void onRationaleResult(boolean showRationale);
     }

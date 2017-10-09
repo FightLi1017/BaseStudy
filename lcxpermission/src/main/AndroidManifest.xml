@@ -5,6 +5,8 @@
     <application>
         <activity
             android:launchMode="standard"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:theme="@style/permission_PermissionActivity"
             android:name=".PermissionActivity">
         </activity>

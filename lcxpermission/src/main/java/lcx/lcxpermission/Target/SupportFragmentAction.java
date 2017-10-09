@@ -1,31 +1,32 @@
 package lcx.lcxpermission.Target;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by lichenxi on 2017/9/28.
  */
 
-public class ActivityAction implements TargetAction {
-    private Activity mActivity;
-    public ActivityAction(Activity activity) {
-        this.mActivity=activity;
+public class SupportFragmentAction implements TargetAction {
+   private Fragment mFragment;
+
+    public SupportFragmentAction(Fragment fragment) {
+        mFragment = fragment;
     }
 
     @Override
     public Context getContext() {
-        return mActivity;
+        return mFragment.getActivity();
     }
 
     @Override
     public void startActivity(Intent intent) {
-        mActivity.startActivity(intent);
+        mFragment.startActivity(intent);
     }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
-        mActivity.startActivityForResult(intent,requestCode);
+        mFragment.startActivityForResult(intent,requestCode);
     }
 }
