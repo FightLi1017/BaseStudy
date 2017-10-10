@@ -19,7 +19,7 @@ import lcx.lcxpermission.Target.SupportFragmentAction;
  */
 
 public class SimplePermission {
-    //还有两个地方要写 一个就是SeetingDialog的书写  还有就一些确认权限的方法
+
     public  static RequestCreator  with(Activity activity){
         return  new RequestCreator(new ActivityAction(activity)) ;
     }

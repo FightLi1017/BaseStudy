@@ -8,8 +8,12 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,17 +83,60 @@ public class RequestCreator implements
                 ((PermissionCallBack)mCallBack).permissionSuccess(requestCode);
             }else{
                 // TODO: 2017/9/28  注解写法 mCallBack 我们从这里对象里找到注解了方法
-
+                Method successMethod=getAnnotationMethod(mCallBack,requestCode,PermissionSuccess.class);
+                if (null!=successMethod){
+                    try {
+                        successMethod.setAccessible(true);
+                        successMethod.invoke(mCallBack);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
+
+    private Method getAnnotationMethod(Object callback,int requestcode,Class<? extends Annotation> annotationClass) {
+       Method[] methods= callback.getClass().getDeclaredMethods();
+       for (Method method:methods){
+              if (method.getAnnotation(annotationClass)!=null){
+               //找到注解的方法了 因为可能存在一个类中 出现多个请求 所以我们要判断requestcode
+                if (PermissionSuccess.class.equals(annotationClass)){
+                  if (method.getAnnotation(PermissionSuccess.class).value()==requestcode){
+                            //匹配Method成功
+                      return method;
+                  }
+                }
+               else
+                if (PermissionFailed.class.equals(annotationClass)){
+                    if (method.getAnnotation(PermissionFailed.class).value()==requestcode){
+                        //匹配Method成功
+                        return method;
+                    }
+                  }
+              }
+       }
+
+        return null;
+    }
+
     private void callbackFailed(List<String> deniedList) {
         if (mCallBack!=null){
             if (mCallBack instanceof  PermissionCallBack){
                 ((PermissionCallBack)mCallBack).permissionFailed(requestCode,deniedList);
             }else{
                 //// TODO: 2017/9/28  注解写法
-
+                Method successMethod=getAnnotationMethod(mCallBack,requestCode,PermissionFailed.class);
+                if (null!=successMethod){
+                    try {
+                        successMethod.setAccessible(true);
+                        successMethod.invoke(mCallBack,deniedList);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Log.e("SimplePermission", "Do you forget @PermissionSuccess or @PermissionFailed for callback method ?");
+                }
             }
         }
     }
@@ -127,7 +174,10 @@ public class RequestCreator implements
 
     @Override
     public void cancel() {
-
+        int[] results = new int[mPermissions.length];
+        for (int i = 0; i < mPermissions.length; i++)
+            results[i] = ContextCompat.checkSelfPermission(mTarget.getContext(), mPermissions[i]);
+        onRequestPermissionsResult(mPermissions, results);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
