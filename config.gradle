@@ -1,0 +1,30 @@
+ext {
+//    plugins = [
+//            application: 'com.android.application',
+//            library    : 'com.android.library',
+//            maven      : 'com.github.dcendents.android-maven',
+//            bintray    : 'com.jfrog.bintray'
+//    ]
+
+    android = [
+            applicationId    : "router.android.lcx.basestudy",
+            compileSdkVersion: 25,
+            buildToolsVersion: "26.0.2",
+            minSdkVersion    : 19,
+            targetSdkVersion : 25,
+            versionCode : 1,
+            versionName :"1.0"
+    ]
+
+    bintray = [
+
+    ]
+
+    dependencies = [
+            appCompat  : 'com.android.support:appcompat-v7:25.3.1',
+            design     : 'com.android.support:design:25.3.1',
+            rxjava: 'io.reactivex:rxjava:1.1.7',
+            rxandroid :'io.reactivex:rxandroid:1.2.1'
+//            permission : 'com.yanzhenjie:permission:1.1.0'
+    ]
+}
