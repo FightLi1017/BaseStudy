@@ -11,12 +11,12 @@ buildscript {
     dependencies {
         ////格式为-->group:module:version
         classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath "plugin.study:lcxstudyplugin:1.0.2"
+//        classpath "plugin.study:lcxstudyplugin:1.0.2"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
-apply plugin: 'lcxPlugin'
+//apply plugin: 'lcxPlugin'
 allprojects {
     repositories {
         jcenter()

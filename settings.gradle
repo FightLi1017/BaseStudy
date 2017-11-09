@@ -1,1 +1,1 @@
-include ':app', ':downmanager'
+include ':app', ':downmanager',"lcxpermission"

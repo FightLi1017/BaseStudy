@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="lcx.lcxpermission.test" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="25" />
+
+    <instrumentation
+        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for lcx.lcxpermission.test"
+        android:targetPackage="lcx.lcxpermission.test" />
+
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="25.3.1" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="lcx.lcxpermission.PermissionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="standard"
+            android:theme="@style/permission_PermissionActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" >
+        </activity>
+    </application>
+
+</manifest>
