@@ -1,12 +1,12 @@
 package fight.android.lcx.downmanager.SimpleDown;
 
-import java.io.ByteArrayOutputStream;
+import android.text.TextUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -34,13 +34,10 @@ public class DownAction implements Runnable {
         if (!saveDir.exists()) {
             saveDir.mkdirs();
         }
-        saveFileAllName=saveDir.getAbsolutePath()+"/"+filename;
+
+
     }
-//首先检查用户是否传入了文件名,如果传入,将以用户传入的文件名命名
-//如果没有传入,那么将会检查服务端返回的响应头是否含有Content-Disposition=attachment;filename=FileName.txt该种形式的响应头,
-//如果有,则按照该响应头中指定的文件名命名文件,如FileName.txt
-//如果上述响应头不存在,则检查下载的文件url,例如:http://image.baidu.com/abc.jpg,那么将会自动以abc.jpg命名文件
-//如果url也把文件名解析不出来,那么最终将以nofilename命名文件；
+
     @Override
     public void run() {
         FileOutputStream fileOutputStream=null;
@@ -53,20 +50,21 @@ public class DownAction implements Runnable {
             connection.setRequestProperty("Connection", "Keep-Alive");
             connection.setRequestProperty("Charset", "UTF-8");
             connection.setRequestProperty("Accept-Encoding", "identity");
-//            connection.setDoInput(true);
-//            connection.setUseCaches(false)
-//            //打开连接
             connection.connect();
+            String field= connection.getHeaderField("Content-Disposition");
+
+            if (!TextUtils.isEmpty(filename)){
+                saveFileAllName=saveDir.getAbsolutePath()+"/"+filename;
+            }else{
+                String netfilename=Httputil.getNetFilename(field,downurl);
+                saveFileAllName=saveDir.getAbsolutePath()+"/"+netfilename;
+            }
+           final File newFile=Fileutil.handleFileName(saveFileAllName);
             //获取内容长度
             int contentLength = connection.getContentLength();
-           final File file =new File(saveFileAllName);
-            if (!file.exists()){
-                 file.createNewFile();
-            }else{
-                //根据浏览器一样 创建一个加1的同名文件
-            }
+
             inputStream = connection.getInputStream();
-            fileOutputStream = new FileOutputStream(file);
+            fileOutputStream = new FileOutputStream(newFile);
             byte[] bytes = new byte[1024];
             long totalReaded = 0;
             int temp_Len;
@@ -80,7 +78,7 @@ public class DownAction implements Runnable {
 //                long progress = totalReaded * 100 / contentLength;
                 mprogress.setTotalReaded(totalReaded);
                 fileOutputStream.write(bytes, 0, temp_Len);
-                Handleutil.runUiThread(new Runnable() {
+                Httputil.runUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mFileCallback.downloadProgress(mprogress);
@@ -88,13 +86,13 @@ public class DownAction implements Runnable {
                 });
 
             }
-            Handleutil.runUiThread(new Runnable() {
+            Httputil.runUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mFileCallback.success(file);
+                    mFileCallback.success(newFile);
                 }
             });
-
+            connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
             mFileCallback.error();
@@ -111,6 +109,8 @@ public class DownAction implements Runnable {
         }
 
     }
+
+
 
 //    private byte[] readInputStream(InputStream inputStream) throws IOException{
 //        byte[] buffer = new byte[1024];

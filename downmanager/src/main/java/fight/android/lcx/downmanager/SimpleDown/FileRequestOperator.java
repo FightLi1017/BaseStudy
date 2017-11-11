@@ -20,6 +20,7 @@ public class FileRequestOperator {
     //getpath getname callback
 
     public FileRequestOperator savePath(String savepath){
+        this.savepath=savepath;
         return this;
     }
     public FileRequestOperator name(String filename){
