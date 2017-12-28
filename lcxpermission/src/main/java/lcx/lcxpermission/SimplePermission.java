@@ -2,11 +2,16 @@ package lcx.lcxpermission;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.AppOpsManagerCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import lcx.lcxpermission.Target.ActivityAction;
@@ -19,7 +24,37 @@ import lcx.lcxpermission.Target.SupportFragmentAction;
  */
 
 public class SimplePermission {
+    /**
+     * Check if the calling context has a set of permissions.
+     *
+     * @param context     {@link Context}.
+     * @param permissions one or more permissions.
+     * @return true, other wise is false.
+     */
+    public static boolean hasPermission(@NonNull Context context, @NonNull String... permissions) {
+        return hasPermission(context, Arrays.asList(permissions));
+    }
 
+    /**
+     * Check if the calling context has a set of permissions.
+     *
+     * @param context     {@link Context}.
+     * @param permissions one or more permissions.
+     * @return true, other wise is false.
+     */
+    public static boolean hasPermission(@NonNull Context context, @NonNull List<String> permissions) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+        for (String permission : permissions) {
+            String op = AppOpsManagerCompat.permissionToOp(permission);
+
+            if (TextUtils.isEmpty(op)) continue;
+            int result = AppOpsManagerCompat.noteProxyOp(context, op, context.getPackageName());
+            if (result == AppOpsManagerCompat.MODE_IGNORED) return false;
+            result = ContextCompat.checkSelfPermission(context, permission);
+            if (result != PackageManager.PERMISSION_GRANTED) return false;
+        }
+        return true;
+    }
     public  static RequestCreator  with(Activity activity){
         return  new RequestCreator(new ActivityAction(activity)) ;
     }
@@ -75,13 +110,13 @@ public class SimplePermission {
         return  false;
     }
 
-    public static SettingDialog SettingDialog(Activity activity, int requestCode) {
-       return  new SettingDialog(activity,new SettingExecutor(new ActivityAction(activity),requestCode));
+    public static SettingDialog SettingDialog(Activity activity) {
+       return  new SettingDialog(activity,new SettingExecutor(new ActivityAction(activity),0));
     }
     public static SettingDialog SettingDialog(android.app.Fragment fragment, int requestCode) {
-        return  new SettingDialog(fragment.getActivity(),new SettingExecutor(new FragmentAction(fragment),requestCode));
+        return  new SettingDialog(fragment.getActivity(),new SettingExecutor(new FragmentAction(fragment),0));
     }
     public static SettingDialog SettingDialog(Fragment fragment, int requestCode) {
-        return  new SettingDialog(fragment.getActivity(),new SettingExecutor(new SupportFragmentAction(fragment),requestCode));
+        return  new SettingDialog(fragment.getActivity(),new SettingExecutor(new SupportFragmentAction(fragment),0));
     }
 }

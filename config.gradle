@@ -8,10 +8,10 @@ ext {
 
     android = [
             applicationId    : "router.android.lcx.basestudy",
-            compileSdkVersion: 25,
+            compileSdkVersion: 26,
             buildToolsVersion: "26.0.2",
             minSdkVersion    : 19,
-            targetSdkVersion : 22,
+            targetSdkVersion : 23,
             versionCode : 1,
             versionName :"1.0"
     ]

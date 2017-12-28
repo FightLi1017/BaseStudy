@@ -96,3 +96,13 @@ lcxpermission/build/intermediates/rs/
 lcxpermission/build/intermediates/shaders/
 lcxpermission/build/intermediates/transforms/
 lcxpermission/build/tmp/
+lcxpermission/build/intermediates/bundles/debug/classes.jar
+lcxpermission/build/intermediates/bundles/debug/jni/
+lcxpermission/build/intermediates/bundles/debug/libs/
+lcxpermission/build/intermediates/classes/debug/
+lcxpermission/build/intermediates/incremental-safeguard/debug/
+lcxpermission/build/intermediates/incremental/mergeDebugJniLibFolders/
+lcxpermission/build/intermediates/manifest/tmp/
+typeadapter/libs/
+typeadapter/src/main/res/drawable/
+typeadapter/build

@@ -7,6 +7,10 @@ buildscript {
         maven {
             url uri('/repos')
         }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
         ////格式为-->group:module:version
@@ -20,6 +24,10 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 }
 

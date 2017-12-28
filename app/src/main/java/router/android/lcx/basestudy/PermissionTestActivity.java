@@ -46,43 +46,59 @@ public class PermissionTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SimplePermission.with(PermissionTestActivity.this)
-                        .Permissions(Manifest.permission.CAMERA)
+                        .Permissions(Manifest.permission.USE_SIP)
                         .requestCode(2).callBack(PermissionTestActivity.this).rationale(new RationaleListener() {
                     @Override
                     public void showRequestPermissionRationale(Rationale rationale) {
                         SimplePermission.showRationaleDialog(PermissionTestActivity.this,rationale).show();
                     }
+                }).callBack(new PermissionCallBack() {
+                    @Override
+                    public void permissionSuccess(int requestcode) {
+
+                        Toast.makeText(PermissionTestActivity.this, "成功了", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void permissionFailed(int requestcode, List<String> deniedPermissions) {
+                        if (SimplePermission.hasAlwaysDentiedPermission(
+                                        PermissionTestActivity.this
+                                                ,deniedPermissions)){
+                            SimplePermission.SettingDialog(PermissionTestActivity.this).show();
+                        }
+                    }
                 }).start();
             }
         });
 
-        Observable.just("Hello Rx Sourse").map(new Func1<String,String>() {
-            @Override
-            public String call(String s) {
-                return s+"......Map操作符转换了";
-            }
-        }).subscribe(new Action1<String>() {
-            @Override
-            public void call(String result) {
-                Toast.makeText(PermissionTestActivity.this, result, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Observable.just("Hello Rx Sourse").flatMap(new Func1<String, Observable<List<String>>>() {
-            @Override
-            public Observable<List<String>> call(String s) {
-               List<String> a =new ArrayList();
-                a.add(s);
-                a.add("sssss");
-                a.add("hahahhaa");
-                return Observable.just(a);
-            }
-        }).subscribe(new Action1<List<String>>() {
-            @Override
-            public void call(List<String> list) {
-                Toast.makeText(PermissionTestActivity.this, list.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Observable.just("Hello Rx Sourse").map(new Func1<String,String>() {
+//            @Override
+//            public String call(String s) {
+//                return s+"......Map操作符转换了";
+//            }
+//        }).subscribe(new Action1<String>() {
+//            @Override
+//            public void call(String result) {
+//                Toast.makeText(PermissionTestActivity.this, result, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        Observable.just("Hello Rx Sourse").flatMap(new Func1<String, Observable<List<String>>>() {
+//            @Override
+//            public Observable<List<String>> call(String s) {
+//               List<String> a =new ArrayList();
+//                a.add(s);
+//                a.add("sssss");
+//                a.add("hahahhaa");
+//                return Observable.just(a);
+//            }
+//        }).subscribe(new Action1<List<String>>() {
+//            @Override
+//            public void call(List<String> list) {
+//                Toast.makeText(PermissionTestActivity.this, list.toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
    @PermissionSuccess(1)
@@ -91,22 +107,25 @@ public class PermissionTestActivity extends AppCompatActivity {
    }
     @PermissionFailed(1)
     public void failed( @NonNull List<String> deniedPermissions){
-        Toast.makeText(this, "gg了"+deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-    }
-    @PermissionSuccess(2)
-    public void success2(){
-        Toast.makeText(this,"成功", Toast.LENGTH_SHORT).show();
-    }
-    @PermissionFailed(2)
-    public void failed2( @NonNull List<String> deniedPermissions){
-        Toast.makeText(this, "gg了"+deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 101: {
-                break;
+        if (SimplePermission.hasPermission(PermissionTestActivity.this,deniedPermissions)){
+            Toast.makeText(this,"成功", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"gg", Toast.LENGTH_SHORT).show();
+            if (SimplePermission.hasAlwaysDentiedPermission(
+                    PermissionTestActivity.this
+                    ,deniedPermissions)){
+                SimplePermission.SettingDialog(PermissionTestActivity.this).show();
             }
         }
+
     }
+//    @PermissionSuccess(2)
+//    public void success2(){
+//        Toast.makeText(this,"成功", Toast.LENGTH_SHORT).show();
+//    }
+//    @PermissionFailed(2)
+//    public void failed2( @NonNull List<String> deniedPermissions){
+//        Toast.makeText(this, "gg了"+deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+//    }
+
 }

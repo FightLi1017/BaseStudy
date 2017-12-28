@@ -1,14 +1,24 @@
 package router.android.lcx.basestudy;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import fight.android.lcx.downmanager.DataWatcher;
 import fight.android.lcx.downmanager.DownEntry;
 import fight.android.lcx.downmanager.DownManager;
 import fight.android.lcx.downmanager.TLog;
+import fight.android.lcx.typeadapter.TypeAdapter;
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
@@ -39,6 +49,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         mButton3=(Button)findViewById(R.id.button3);
         mButton3.setOnClickListener(this);
         mDownManager=DownManager.getInstance(this);
+        ActivityManager   mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> runServiceList = mActivityManager
+                .getRunningServices(2);
+
 
     }
 
@@ -46,7 +60,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onResume() {
         super.onResume();
         mDownManager.addObserver(mDataWatcher);
-
     }
 
     @Override

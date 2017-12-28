@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="router.android.lcx.basestudy.StateView.Main3Activity">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/aaaa"
+        android:layout_width="match_parent"
+                  android:layout_height="30dp">
+       <Button
+           android:id="@+id/empty"
+           style="@style/Widget.AppCompat.Button"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/nonetwork"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/loading"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/error"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+ <router.android.lcx.basestudy.StateView.MultStateView
+     android:id="@+id/multstateview"
+    android:layout_below="@id/aaaa"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:gravity="center"
+        android:text="我是内容页"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</router.android.lcx.basestudy.StateView.MultStateView>
+</RelativeLayout>

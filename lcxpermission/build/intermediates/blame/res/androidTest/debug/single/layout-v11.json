@@ -1,7 +1,19 @@
 [
     {
+        "merged": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_template_big_media_narrow.xml",
+        "source": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_template_big_media_narrow.xml"
+    },
+    {
         "merged": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_media_action.xml",
         "source": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_template_big_media_narrow_custom.xml",
+        "source": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_template_big_media_custom.xml",
+        "source": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_template_big_media_custom.xml"
     },
     {
         "merged": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_template_big_media_narrow_custom.xml",
@@ -12,8 +24,16 @@
         "source": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_template_big_media_narrow.xml"
     },
     {
+        "merged": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_media_action.xml",
+        "source": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_media_action.xml"
+    },
+    {
         "merged": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_template_big_media.xml",
         "source": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_template_big_media.xml",
+        "source": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_template_big_media.xml"
     },
     {
         "merged": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_media_cancel_action.xml",
@@ -22,5 +42,9 @@
     {
         "merged": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_template_big_media_custom.xml",
         "source": "/Users/lichenxi/Android study/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/res/merged/androidTest/debug/layout-v11/notification_media_cancel_action.xml",
+        "source": "/Users/lichenxi/AndroidStudy/BaseStudy/lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/res/layout-v11/notification_media_cancel_action.xml"
     }
 ]

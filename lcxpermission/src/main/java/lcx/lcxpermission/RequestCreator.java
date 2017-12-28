@@ -125,7 +125,7 @@ public class RequestCreator implements
             if (mCallBack instanceof  PermissionCallBack){
                 ((PermissionCallBack)mCallBack).permissionFailed(requestCode,deniedList);
             }else{
-                //// TODO: 2017/9/28  注解写法
+
                 Method successMethod=getAnnotationMethod(mCallBack,requestCode,PermissionFailed.class);
                 if (null!=successMethod){
                     try {

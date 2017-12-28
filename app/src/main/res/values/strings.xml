@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BaseStudy</string>
+    <string name="loading">正在加载中</string>
+    <string name="empty">暂无数据</string>
+    <string name="error">加载失败</string>
+    <string name="network_failure">当前网络没有连接</string>
+    <string name="please_retry">请连接网络后点击页面刷新</string>
 </resources>
