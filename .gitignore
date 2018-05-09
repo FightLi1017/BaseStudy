@@ -1,108 +1,39 @@
-*.iml
-.gradle
-/local.properties
-.idea
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+out/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Windows thumbnail db
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-app/libs/
-app/src/main/res/drawable/
-downmanager/libs/
-downmanager/src/main/res/drawable/
-lcxpermission/build/generated/assets/
-lcxpermission/build/generated/res/
-lcxpermission/build/generated/source/aidl/
-lcxpermission/build/generated/source/apt/
-lcxpermission/build/generated/source/rs/
-lcxpermission/build/intermediates/annotations/
-lcxpermission/build/intermediates/bundles/debug/aidl/
-lcxpermission/build/intermediates/bundles/debug/assets/
-lcxpermission/build/intermediates/bundles/release/aidl/
-lcxpermission/build/intermediates/bundles/release/assets/
-lcxpermission/build/intermediates/bundles/release/jni/
-lcxpermission/build/intermediates/bundles/release/libs/
-lcxpermission/build/intermediates/dependency-cache/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-core/2.2.2/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-core/2.2.2/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-core/2.2.2/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-idling-resource/2.2.2/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-idling-resource/2.2.2/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test.espresso/espresso-idling-resource/2.2.2/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/exposed-instrumentation-api-publish/0.5/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/exposed-instrumentation-api-publish/0.5/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/exposed-instrumentation-api-publish/0.5/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/rules/0.5/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/rules/0.5/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/runner/0.5/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/runner/0.5/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support.test/runner/0.5/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.3.1/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.3.1/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.1/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/res/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/aidl/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/assets/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/jni/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/libs/
-lcxpermission/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/res/
-lcxpermission/build/intermediates/incremental/mergeDebugAndroidTestResources/aapt-temp/
-lcxpermission/build/intermediates/incremental/mergeDebugResources/aapt-temp/
-lcxpermission/build/intermediates/incremental/mergeReleaseResources/aapt-temp/
-lcxpermission/build/intermediates/incremental/packageDebugAndroidTest/
-lcxpermission/build/intermediates/incremental/packageDebugResources/aapt-temp/
-lcxpermission/build/intermediates/incremental/packageReleaseResources/aapt-temp/
-lcxpermission/build/intermediates/incremental/processDebugAndroidTestResources/
-lcxpermission/build/intermediates/incremental/processDebugResources/
-lcxpermission/build/intermediates/incremental/processReleaseResources/
-lcxpermission/build/intermediates/jniLibs/
-lcxpermission/build/intermediates/lint/
-Woul
-d remove lcxpermission/build/intermediates/manifest/tmp/
-lcxpermission/build/intermediates/rs/
-lcxpermission/build/intermediates/shaders/
-lcxpermission/build/intermediates/transforms/
-lcxpermission/build/tmp/
-lcxpermission/build/intermediates/bundles/debug/classes.jar
-lcxpermission/build/intermediates/bundles/debug/jni/
-lcxpermission/build/intermediates/bundles/debug/libs/
-lcxpermission/build/intermediates/classes/debug/
-lcxpermission/build/intermediates/incremental-safeguard/debug/
-lcxpermission/build/intermediates/incremental/mergeDebugJniLibFolders/
-lcxpermission/build/intermediates/manifest/tmp/
-typeadapter/libs/
-typeadapter/src/main/res/drawable/
-typeadapter/build
+
+# IDEA/Android Studio project files, because
+# the project can be imported from settings.gradle
+*.iml
+.idea/
+
+# Gradle cache
+.gradle
+
+# Sandbox stuff
+_sandbox
+
+# Android Studio captures folder
+captures/

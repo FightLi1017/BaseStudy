@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 /**
- * Created by lichenxi on 2017/11/9.
+ * Created by lichenxi on 2017/10/9.
  */
 
 public class FileDownManager {

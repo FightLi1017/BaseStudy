@@ -3,6 +3,7 @@ package router.android.lcx.basestudy.StateView;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
