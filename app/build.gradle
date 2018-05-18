@@ -27,10 +27,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':downmanager')
-    compile rootProject.ext.dependencies.appCompat
-    compile rootProject.ext.dependencies.rxjava
-    compile rootProject.ext.dependencies.rxandroid
+    compile  rootProject.ext.dependencies.appCompat
+    compile  rootProject.ext.dependencies.rxjava
+    compile  rootProject.ext.dependencies.rxandroid
     testCompile 'junit:junit:4.12'
     compile 'com.classic.common:multiple-status-view:1.2'
     compile 'com.jakewharton:butterknife:7.0.1'
