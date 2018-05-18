@@ -64,6 +64,30 @@ public class DummyContent {
             this.details = details;
         }
 
+        public boolean equals(Object object) {
+            if (this == object) return true;
+            if (object == null || getClass() != object.getClass()) return false;
+            if (!super.equals(object)) return false;
+
+            DummyItem item = (DummyItem) object;
+
+            if (id != null ? !id.equals(item.id) : item.id != null) return false;
+            if (content != null ? !content.equals(item.content) : item.content != null)
+                return false;
+            if (details != null ? !details.equals(item.details) : item.details != null)
+                return false;
+
+            return true;
+        }
+
+        public int hashCode() {
+            int result = super.hashCode();
+            result = 31 * result + (id != null ? id.hashCode() : 0);
+            result = 31 * result + (content != null ? content.hashCode() : 0);
+            result = 31 * result + (details != null ? details.hashCode() : 0);
+            return result;
+        }
+
         @Override
         public String toString() {
             return content;

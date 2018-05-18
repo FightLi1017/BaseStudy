@@ -129,7 +129,10 @@ final class AnnotatedHandlerFinder {
     SUBSCRIBERS_CACHE.put(listenerClass, subscriberMethods);
   }
 
-  /** This implementation finds all methods marked with a {@link Produce} annotation. */
+  /** This implementation finds all methods marked with a {@link Produce} annotation.
+   *
+   *
+   * */
   static Map<Class<?>, EventProducer> findAllProducers(Object listener) {
     final Class<?> listenerClass = listener.getClass();
     Map<Class<?>, EventProducer> handlersInMethod = new HashMap<Class<?>, EventProducer>();

@@ -1,4 +1,4 @@
-package com.com.daggerdemo;
+package com.com.daggerdemo.Bottomlib;
 
 
 import android.app.Activity;
@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.com.daggerdemo.MainActivity;
+import com.com.daggerdemo.R;
 
 
 /**

@@ -13,21 +13,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
         </activity>
         <activity
-            android:launchMode="singleTask"
-            android:name=".Main2Activity">
+            android:name=".Main2Activity"
+            android:launchMode="singleTask">
+
+        </activity>
+
+        <provider
+            android:name=".OkDownloadProvider"
+            android:authorities="com.android.provider.OkDownloadProvider"/>
+
+        <activity
+            android:name=".Study.ItemListActivity"
+            android:label="@string/title_item_list"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <provider
-            android:name=".OkDownloadProvider"
-            android:authorities="com.android.provider.OkDownloadProvider"/>
+        <activity
+            android:name=".Study.ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".Study.ItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.com.daggerdemo.Study.ItemListActivity"/>
+        </activity>
     </application>
 
 </manifest>

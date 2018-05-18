@@ -119,7 +119,9 @@ public class Bus {
     }
   };
 
-  /** Creates a new Bus named "default" that enforces actions on the main thread. */
+  /** Creates a new Bus named "default" that enforces actions on the main thread.
+   * 默认构造函数 使用默认标识符
+   * */
   public Bus() {
     this(DEFAULT_IDENTIFIER);
   }
@@ -128,6 +130,8 @@ public class Bus {
    * Creates a new Bus with the given {@code identifier} that enforces actions on the main thread.
    *
    * @param identifier a brief name for this bus, for debugging purposes.  Should be a valid Java identifier.
+   *  默认构造函数
+   *  自定义标识符  线程执行者默认为主线程  这里ThreadEnforcer的作用 就是限制整个消息系统的处理 发生在哪个线程
    */
   public Bus(String identifier) {
     this(ThreadEnforcer.MAIN, identifier);
@@ -137,6 +141,7 @@ public class Bus {
    * Creates a new Bus named "default" with the given {@code enforcer} for actions.
    *
    * @param enforcer Thread enforcer for register, unregister, and post actions.
+   *  默认构造函数 可以自定义线程执行者 采用系统默认标识符
    */
   public Bus(ThreadEnforcer enforcer) {
     this(enforcer, DEFAULT_IDENTIFIER);
@@ -147,9 +152,11 @@ public class Bus {
    *
    * @param enforcer Thread enforcer for register, unregister, and post actions.
    * @param identifier A brief name for this bus, for debugging purposes.  Should be a valid Java identifier.
+   *  默认构造函数 自定义线程执行者和标识符
+   *  HandlerFinder.ANNOTATED
    */
   public Bus(ThreadEnforcer enforcer, String identifier) {
-    this(enforcer, identifier, HandlerFinder.ANNOTATED);
+     this(enforcer, identifier, HandlerFinder.ANNOTATED);
   }
 
   /**
@@ -180,13 +187,15 @@ public class Bus {
    *
    * @param object object whose handler methods should be registered.
    * @throws NullPointerException if the object is null.
+   * 系统的入口 在对应的object里面 注册对应的生产者和消费者 系统会自动的扫描并且注册
    */
   public void register(Object object) {
     if (object == null) {
       throw new NullPointerException("Object to register must not be null.");
     }
+    //检测执行线程 默认在主线程里面
     enforcer.enforce(this);
-    //通过注解 发现所有的生产者
+    //通过handlerFinder找到object下所有的生产者 加了@Produce注解的
     Map<Class<?>, EventProducer> foundProducers = handlerFinder.findAllProducers(object);
     for (Class<?> type : foundProducers.keySet()) {
 

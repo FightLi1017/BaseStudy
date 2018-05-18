@@ -1,4 +1,4 @@
-package com.com.daggerdemo;
+package com.com.daggerdemo.Bottomlib;
 
 
 import android.app.Activity;
@@ -10,14 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.com.daggerdemo.MainActivity;
+import com.com.daggerdemo.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BlankFragment2 extends Fragment {
+public class BlankFragment3 extends Fragment {
     private MainActivity mActivity;
 
-    public BlankFragment2() {
+    public BlankFragment3() {
         // Required empty public constructor
     }
 
@@ -33,7 +36,7 @@ public class BlankFragment2 extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mTextView=  view.findViewById(R.id.text);
-        mTextView.setText("Text2");
+        mTextView.setText("Text3");
     }
     @Override
     public void onAttach(Activity activity) {
