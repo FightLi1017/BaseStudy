@@ -14,7 +14,7 @@ ext {
             targetSdkVersion : 23,
             versionCode : 1,
             versionName :"1.0"
-    ]
+      ]
 
     bintray = [
 
@@ -24,8 +24,9 @@ ext {
             appCompat  : 'com.android.support:appcompat-v7:25.3.1',
             design     : 'com.android.support:design:25.3.1',
             rxjava :'io.reactivex.rxjava2:rxjava:2.0.2',
-            rxandroid : 'io.reactivex.rxjava2:rxandroid:2.0.0'
-//            permission : 'com.yanzhenjie:permission:1.1.0'
+            rxandroid : 'io.reactivex.rxjava2:rxandroid:2.0.0',
+            rxJava2 : 'io.reactivex.rxjava2:rxjava:2.1.13',
+            rxAndroid2 : 'io.reactivex.rxjava2:rxandroid:2.0.2'
     ]
     minSdkVersion = 14
     targetSdkVersion = 26
@@ -46,3 +47,4 @@ ext {
     daggerVersion = '2.11'
     dexmakerVersion = '1.2'
 }
+

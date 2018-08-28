@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 26
     buildToolsVersion "27.0.3"
@@ -11,6 +10,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    sourceSets{
+         main{
+             res.srcDirs=['src/main/res','src/main/res-ad','src/main/res-hh']
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -20,18 +24,133 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 //    compile 'com.android.support:support-v4:26.1.0'
 //    compile 'com.android.support:recyclerview-v7:26.1.0'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile  rootProject.ext.dependencies.appCompat
-    compile  rootProject.ext.dependencies.rxjava
-    compile  rootProject.ext.dependencies.rxandroid
-    testCompile 'junit:junit:4.12'
-    compile 'com.classic.common:multiple-status-view:1.2'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.android.support:design:26.0.1'
+    implementation  rootProject.ext.dependencies.appCompat
+    implementation  rootProject.ext.dependencies.rxjava
+    implementation  rootProject.ext.dependencies.rxandroid
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.classic.common:multiple-status-view:1.2'
+//    compile 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.android.support:design:26.0.1'
+}
+//gradle 学习  文件拷贝 在项目中 一般做 Copy Apk的工作
+//copy{
+//   from file('build/generated')
+//   into getRootProject().getBuildDir().path+"/generated/"
+//   //在这个里面 对不想要拷贝的文件进行排除
+//   exclude {}
+//   //文件重命名
+//   rename {}
+//}
+
+/*
+   对文件树进行遍历
+ */
+//fileTree('build/generated') { FileTree tree ->
+//    tree.visit {
+//        FileTreeElement element ->
+//            println "the File name is:" +element.file.name
+//            copy {
+//                from element.file
+//                into getRootProject().getBuildDir().path + "/test/"
+//            }
+//    }
+//}
+
+/**
+ * task输入输出详解
+ */
+ext{
+    versionName="1.1.0"
+    versionCode="110"
+    verisonInfo="这是我们第二个版本, 测试了一下gradle,更新了一些小玩意"
+    destFile=file('releases.xml')
+    if (destFile!=null&& !destFile.exists()){
+        destFile.createNewFile()
+    }
+}
+
+task writeTask{
+    //为task指定输入
+    inputs.property("versionName",this.versionName)
+    inputs.property("versionCode",this.versionCode)
+    inputs.property("verisonInfo",this.verisonInfo)
+    //task指定输出
+    outputs.file destFile
+
+    doLast {
+        def data = inputs.getProperties()
+        File file = outputs.getFiles().getSingleFile()
+        //将map转换为实体对象
+        def verMsg = new VersionMsg(data)
+        def sw = new StringWriter()
+        def xmlBuild = new groovy.xml.MarkupBuilder(sw);
+        if (file != null && file.size() <= 0) {
+            //文件中没有内容 先生成Root节点
+            xmlBuild.releases {
+                xmlBuild.release {
+                    VersionCode(verMsg.versionCode)
+                    VersionName(verMsg.versionName)
+                    VersionInfo(verMsg.verisonInfo)
+                }
+            }
+            file.withWriter { write -> write.append(sw.toString()) }
+        } else {
+            //已经存在内容 首先生成三个节点信息
+            xmlBuild.release {
+                VersionCode(verMsg.versionCode)
+                VersionName(verMsg.versionName)
+                VersionInfo(verMsg.verisonInfo)
+            }
+            //将生成的xml数据插入到根节点之前
+            def lines=file.readLines()
+            //当前内容所有的总行数
+            def lengths=lines.size()-1
+            //读取xml文件内容 并且写入信息
+            file.withWriter { write ->
+                lines.eachWithIndex{String line,int index ->
+                    if (index!=lengths){
+                        write.append(line+'\r\n')
+                    }else if(index==lengths){
+                        println sw.toString()
+                        write.append('\r\n'+sw.toString()+"\r\n")
+                        write.append(lines.get(index))
+                    }
+                }
+            }
+        }
+    }
+}
+//将已经定义好的任务 和系统构建的任务连接在一起 这样就不用手动执行了
+this.project.afterEvaluate { project ->
+    def buildtask = project.tasks.getByName("build")
+    if (buildtask == null) throw GradleException('the build task is not found')
+    buildtask.doLast {
+        writeTask.execute()
+    }
+}
+task readTask{
+    inputs.file destFile
+    doLast {
+        def file =inputs.files.singleFile
+        println file.text
+    }
+}
+
+task texttask{
+    dependsOn readTask,writeTask
+    doLast{
+        println '执行完毕了 哈哈'
+    }
+}
+class VersionMsg {
+    String versionName;
+    String versionCode;
+    String verisonInfo;
 }

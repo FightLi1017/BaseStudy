@@ -92,6 +92,7 @@ public class Bus {
           new ConcurrentHashMap<Class<?>, Set<EventHandler>>();
 
   /** All registered event producers, index by event type. */
+   //并发安全的HashMap类 放在多线程下注册问题
   private final ConcurrentMap<Class<?>, EventProducer> producersByType =
           new ConcurrentHashMap<Class<?>, EventProducer>();
 
@@ -105,6 +106,13 @@ public class Bus {
   private final HandlerFinder handlerFinder;
 
   /** Queues of events for the current thread to dispatch. */
+  /*
+       TODO: 2018/5/19 为什么这里要用一个ThreadLocal来存储有一个线性队列
+       答案: 即每个线程内部都会有一个该变量，且在线程内部任何地方都可以使用，
+             线程之间互不影响，这样一来就不存在线程安全问题
+        initialValue()是一个protected方法，一般是用来在使用时进行重写的，它是一个延迟加载方法
+    */
+
   private final ThreadLocal<ConcurrentLinkedQueue<EventWithHandler>> eventsToDispatch =
       new ThreadLocal<ConcurrentLinkedQueue<EventWithHandler>>() {
         @Override protected ConcurrentLinkedQueue<EventWithHandler> initialValue() {
@@ -123,7 +131,7 @@ public class Bus {
    * 默认构造函数 使用默认标识符
    * */
   public Bus() {
-    this(DEFAULT_IDENTIFIER);
+     this(DEFAULT_IDENTIFIER);
   }
 
   /**
@@ -195,7 +203,7 @@ public class Bus {
     }
     //检测执行线程 默认在主线程里面
     enforcer.enforce(this);
-    //通过handlerFinder找到object下所有的生产者 加了@Produce注解的
+    //通过handlerFinder找到object下所有的生产者 加了@Produce注解的  key代表对应的生产者class value 为了方便方法调用封装类
     Map<Class<?>, EventProducer> foundProducers = handlerFinder.findAllProducers(object);
     for (Class<?> type : foundProducers.keySet()) {
 
@@ -211,11 +219,12 @@ public class Bus {
       Set<EventHandler> handlers = handlersByType.get(type);
       if (handlers != null && !handlers.isEmpty()) {
         for (EventHandler handler : handlers) {
-          dispatchProducerResultToHandler(handler, producer);
+           dispatchProducerResultToHandler(handler, producer);
         }
       }
     }
-    // TODO: 2018/3/27  泡下源码 跟进下流程 这里确实有点卡住了  一个类中 可以让同一个订阅者事件注册多个订阅函数
+
+    //通过handlerFinder找到object下所有的生产者 加了@Subscribe注解的
     Map<Class<?>, Set<EventHandler>> foundHandlersMap = handlerFinder.findAllSubscribers(object);
     for (Class<?> type : foundHandlersMap.keySet()) {
       Set<EventHandler> handlers = handlersByType.get(type);
@@ -233,8 +242,17 @@ public class Bus {
       }
     }
 
+    /**
+     * 遍历所有找到 EventHandler （ @Subscribe方法 ）
+     */
     for (Map.Entry<Class<?>, Set<EventHandler>> entry : foundHandlersMap.entrySet()) {
       Class<?> type = entry.getKey();
+      /**
+       * 再拿一次 EventProducer 缓存
+       * 如果object 里 存在 @Producer 方法
+       * 才循环 EventHandler 的逻辑里去 调用
+       * dispatchProducerResultToHandler方法
+       */
       EventProducer producer = producersByType.get(type);
       if (producer != null && producer.isValid()) {
         Set<EventHandler> foundHandlers = entry.getValue();
@@ -243,13 +261,16 @@ public class Bus {
             break;
           }
           if (foundHandler.isValid()) {
-            dispatchProducerResultToHandler(foundHandler, producer);
+              dispatchProducerResultToHandler(foundHandler, producer);
           }
         }
       }
     }
   }
-
+   /*
+     分发生产者和消费者 利用封装的EventXXX对象  通过反射来调用不同目标类注解的方法
+     完成了所谓的 提供 @Produce被 自身 @Subscribe 消费的流程
+    */
   private void dispatchProducerResultToHandler(EventHandler handler, EventProducer producer) {
     Object event = null;
     try {
@@ -274,7 +295,22 @@ public class Bus {
     if (object == null) {
       throw new NullPointerException("Object to unregister must not be null.");
     }
+    /**
+     * 一般用户不设置的话
+     * 这里的ThreadEnforcer为ThreadEnforcer.MAIN
+     */
     enforcer.enforce(this);
+
+    /**
+     * 通过handlerFinder找到object下所有的生产者 加了@Produce注解的
+     * key代表对应的生产者class value 为了方便方法调用封装类
+     *
+     * 拿到对应的 EventProducer
+     * 这里只拿一个 又表明了：
+     * 一个 object 只存在 一个 EventProducer
+     * producer 表示 已缓存的 该 object 的 所有 EventProducer
+     * value 表示 通过Finder 找到的 所有 EventHandler
+     */
 
     Map<Class<?>, EventProducer> producersInListener = handlerFinder.findAllProducers(object);
     for (Map.Entry<Class<?>, EventProducer> entry : producersInListener.entrySet()) {
@@ -303,7 +339,7 @@ public class Bus {
 
       for (EventHandler handler : currentHandlers) {
         if (eventMethodsInListener.contains(handler)) {
-          handler.invalidate();
+           handler.invalidate();
         }
       }
       currentHandlers.removeAll(eventMethodsInListener);
@@ -325,17 +361,20 @@ public class Bus {
       throw new NullPointerException("Event to post must not be null.");
     }
     enforcer.enforce(this);
-
+   //找到该事件和事件所有的父类
     Set<Class<?>> dispatchTypes = flattenHierarchy(event.getClass());
 
     boolean dispatched = false;
     for (Class<?> eventType : dispatchTypes) {
+      //得到该事件下 有多少对应的订阅方法
       Set<EventHandler> wrappers = getHandlersForEventType(eventType);
-
+       /*
+          遍历缓存下所有的EventHandler 并且入队列 开始事件
+        */
       if (wrappers != null && !wrappers.isEmpty()) {
         dispatched = true;
         for (EventHandler wrapper : wrappers) {
-          enqueueEvent(event, wrapper);
+           enqueueEvent(event, wrapper);
         }
       }
     }
@@ -350,6 +389,7 @@ public class Bus {
   /**
    * Queue the {@code event} for dispatch during {@link #dispatchQueuedEvents()}. Events are queued in-order of
    * occurrence so they can be dispatched in the same order.
+   * 封装成 EventWithHandler入队列
    */
   protected void enqueueEvent(Object event, EventHandler handler) {
     eventsToDispatch.get().offer(new EventWithHandler(event, handler));
@@ -358,6 +398,9 @@ public class Bus {
   /**
    * Drain the queue of events to be dispatched. As the queue is being drained, new events may be posted to the end of
    * the queue.
+   * 开始处理事件队列
+   * 这里添加一个isDispatching的含义就是 队列已经开发轮训 while循环已经开始了 对于同一个线程来说  不用再次开启while循环
+   * yes
    */
   protected void dispatchQueuedEvents() {
     // don't dispatch if we're already dispatching, that would allow reentrancy and out-of-order events. Instead, leave
@@ -441,6 +484,11 @@ public class Bus {
     return classes;
   }
 
+  /**
+   * 寻找一个类的所有父类包括他自己
+   * @param concreteClass
+   * @return
+   */
   private Set<Class<?>> getClassesFor(Class<?> concreteClass) {
     List<Class<?>> parents = new LinkedList<Class<?>>();
     Set<Class<?>> classes = new HashSet<Class<?>>();

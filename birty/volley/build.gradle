@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion = 19
+    compileSdkVersion 22
+    buildToolsVersion = '27.0.3'
 
     sourceSets {
-        defaultConfig {
-            testPackageName 'com.android.volley.tests'
-        }
+//        defaultConfig {
+//            testPackageName 'com.android.volley'
+//        }
 
         main {
             assets.srcDirs       = ['assets']
@@ -17,10 +17,9 @@ android {
             renderscript.srcDirs = ['src']
             java.srcDirs         = ['src']
             manifest.srcFile 'AndroidManifest.xml'
-
         }
 
-        instrumentTest.setRoot('tests')
-        instrumentTest.java.srcDirs = ['tests/src']
+//        instrumentTest.setRoot('tests')
+//        instrumentTest.java.srcDirs = ['tests/src']
     }
 }

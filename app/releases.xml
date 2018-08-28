@@ -1,0 +1,20 @@
+<releases>
+  <release>
+    <VersionCode>100</VersionCode>
+    <VersionName>1.0.0</VersionName>
+    <VersionInfo>这是我们第一个版本, 测试了一下gradle,更新了一些小玩意</VersionInfo>
+  </release>
+
+<release>
+  <VersionCode>110</VersionCode>
+  <VersionName>1.1.0</VersionName>
+  <VersionInfo>这是我们第一个版本, 测试了一下gradle,更新了一些小玩意</VersionInfo>
+</release>
+
+
+<release>
+  <VersionCode>110</VersionCode>
+  <VersionName>1.1.0</VersionName>
+  <VersionInfo>这是我们第二个版本, 测试了一下gradle,更新了一些小玩意</VersionInfo>
+</release>
+</releases>

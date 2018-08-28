@@ -2,6 +2,7 @@
 apply from: "config.gradle"
 
 buildscript {
+    ext.kotlin_version = '1.2.51'
     repositories {
         jcenter()
         maven {
@@ -12,14 +13,17 @@ buildscript {
             name 'Google'
         }
     }
+
     dependencies {
         ////格式为-->group:module:version
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 //        classpath "plugin.study:lcxstudyplugin:1.0.2"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+
 //apply plugin: 'lcxPlugin'
 allprojects {
     repositories {
@@ -33,4 +37,120 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+//监听gradle生命周期
+//  1 init之后 config之前
+ this.beforeEvaluate { println '初始化阶段完成'}
+//  2 config之后 执行之前
+ this.afterEvaluate {println '配置阶段完成'}
+//执行阶段完成之后
+this.gradle.buildFinished {println '执行阶段完成'}
+this.gradle.afterProject {}
+this.gradle.beforeProject {}
+this.gradle.addBuildListener()
+this.gradle.addProjectEvaluationListener()
+
+/**
+ * Project相关Api详解
+ */
+//this.getParentProject()
+def getProjects(){
+    println "------------"
+    println "Root Project"
+    println "------------"
+    this.getAllprojects().eachWithIndex{ Project project, int index ->
+        if (index==0){
+            println "Root Project:${project.name}"
+        }else{
+            println "+-------Project:${project.name}"
+        }
+
+    }
+}
+//方法会报错 因为是写在Root下面的 build文件的 转移到子Project就可以了
+def getParentProject(){
+    def name=this.getParent().name
+
+    println "the parent project name:${name}"
+}
+
+/**
+ * Project相关Api详解2
+ */
+//如果你愿意的话 你可以吧app项目下 所有的配置都放在这里 同理 其他的子项目都可以
+//project("app") { Project project ->
+//    apply plugin: 'com.android.application'
+//    group 'com.lcx'
+//    version "1.0.0"
+//    dependencies {
+//
+//    }
+//    android {
+//
+//    }
+//}
+//配置当前节点和所有SubProject的所有Project
+allprojects {
+    group 'com.lcx'
+    version "1.0.0"
+}
+
+println project('app').group
+//不包括当前节点工程，只包括子工程
+subprojects {
+    if(it.plugins.hasPlugin('com.android.library')) {
+      //如果是一个库工程 做一些操作 比如引入上传Maven的gradle 等
+   }
+}
+
+
+/**
+ * Project的属性Api详解1
+ * ext扩展属性的闭包 可以用来定义我们的常用变量 定义方式 当前项目下 Root项目下 新建一个脚本类的形式 然后apply from引入的形式
+ * 把gradle看成编程框架 build.gradle 看来一个类而言 直接写数字（魔数） 就太垃圾了
+ *
+ * 或者在gradle.properties里面 定义扩展属性 使用方法 看settings.gradle里面的代码就可以
+ */
+
+
+/**
+ * Project文件操作Api 路径获取Api  文件操作相关的api
+ */
+println "the root file path is:"+getRootDir().absolutePath
+println "the root file path is:"+getBuildDir().absolutePath
+println "the root file path is:"+getProjectDir().absolutePath
+//以当前目录下 寻找对应的文件
+println getContent('config.gradle')
+def getContent(String path){
+    try {
+        //相对于当前Project工程开始查找 file对应一个 files对应多个 详情可查看源代码
+       File file= file(path)
+      return file.text
+    }catch (GradleException e){
+        prlinln "file not found"
+    }
+   return  null
+}
+buildscript{ScriptHandler scriptHandler->
+    //仓库依赖地址
+    repositories{RepositoryHandler repositories->
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+//        maven{
+//           //一般而言是公司的私服地址
+//           name 'personal'
+//           url 'http:localhost:8081:/lcx/hhh'
+//           credentials{
+//                username="admin"
+//                password="XXXXX"
+//           }
+//        }
+    }
+   //配置工程的插件依赖地址
+    dependencies{
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
