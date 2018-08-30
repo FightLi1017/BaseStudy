@@ -1,9 +1,10 @@
 package android.com.pluginstudy.HookActivity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class Main2Activity extends AppCompatActivity {
@@ -16,5 +17,8 @@ public class Main2Activity extends AppCompatActivity {
         String text=getIntent().getStringExtra(HookHelper.Plugin);
         tv.setText(text);
         setContentView(tv);
+
+        ObjectAnimator fadeAnim = ObjectAnimator.ofFloat(tv, "alpha", 1f, 0f);
+
     }
 }
