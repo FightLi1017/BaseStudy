@@ -96,7 +96,7 @@ allprojects {
     version "1.0.0"
 }
 
-println project('app').group
+//println project('app').group
 //不包括当前节点工程，只包括子工程
 subprojects {
     if(it.plugins.hasPlugin('com.android.library')) {

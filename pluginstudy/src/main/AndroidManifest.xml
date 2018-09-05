@@ -6,22 +6,26 @@
         android:name=".HookActivity.MyAppllication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/plug_text"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".HookActivity.Main2Activity">
-        </activity>
-        <activity android:name=".HookAmsPms.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".HookActivity.Main2Activity">
+        </activity>
+        <activity android:name=".HookAmsPms.TestActivity">
+
+        </activity>
+
+        <!-- 替身Activity, 用来欺骗AMS  -->
+        <activity android:name=".intercept_activity.StubActivity"/>
+
     </application>
 
 </manifest>

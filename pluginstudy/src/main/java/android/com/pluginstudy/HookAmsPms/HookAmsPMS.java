@@ -1,5 +1,6 @@
 package android.com.pluginstudy.HookAmsPms;
 
+import android.com.pluginstudy.intercept_activity.ActivityManagerHandler;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -16,6 +17,8 @@ import java.lang.reflect.Proxy;
  * 有个疑问点 就是为什呢能够成功的Hook呢 很奇怪  答案: 因为这个字段是静态的 全局就只有一个 所以可以hook
  */
 public class HookAmsPMS {
+
+
       public static void hookAMS() {
           try{
               Class<?>  amnClass=Class.forName("android.app.ActivityManager");
@@ -37,7 +40,7 @@ public class HookAmsPMS {
               Class<?> iActivityManagerInterface = Class.forName("android.app.IActivityManager");
 
               Object proxy = Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(),new Class[]{iActivityManagerInterface},
-                      new HookHandler(activityManagerService));
+                      new ActivityManagerHandler(activityManagerService));
               mInstanceField.set(gDefault,proxy);
 
           }catch (Exception e){

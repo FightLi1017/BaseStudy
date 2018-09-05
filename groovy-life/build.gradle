@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 

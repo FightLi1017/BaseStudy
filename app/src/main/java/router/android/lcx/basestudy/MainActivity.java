@@ -1,5 +1,6 @@
 package router.android.lcx.basestudy;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener{
 
     private Button mButton1;
     private Button mButton2;

@@ -13,22 +13,21 @@
     android:tooltipText="@string/hhhhh"
     tools:context="router.android.lcx.basestudy.MainActivity">
 
-    <!--<Button-->
-        <!--android:id="@+id/button1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="133dp" android:text="Button" android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"/>-->
-    <!--<Button-->
-        <!--android:id="@+id/button2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="133dp" android:text="Button" android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"/>-->
-    <!--<Button-->
-        <!--android:id="@+id/button3"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="133dp" android:text="Button" android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"/>-->
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="133dp"
+        android:text="GFFFKHFFHK"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="133dp"
+        android:text="GKKHFKHFFHFJFH"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
 </LinearLayout>

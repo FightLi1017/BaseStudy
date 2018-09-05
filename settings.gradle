@@ -1,4 +1,4 @@
-include  ':groovy-life',':birty:volley',':app', ':pluginstudy'
+include  ':groovy-life', ':pluginstudy', ':mainmodule'
 
 if(hasProperty('isLoadTest')?isLoadTest.toBoolean():false){
      include ':otto'

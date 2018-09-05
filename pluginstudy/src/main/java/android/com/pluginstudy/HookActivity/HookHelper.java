@@ -2,6 +2,8 @@ package android.com.pluginstudy.HookActivity;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.com.pluginstudy.intercept_activity.ActivityThreadHandlerCallback;
+import android.os.Handler;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -48,5 +50,19 @@ public class HookHelper {
         HookInstrumentation hookInstrumentation = new HookInstrumentation(instrumentation);
 
         field.set(currentActivityThread, hookInstrumentation);
+
+
+        Field mHField=activityThreadClass.getDeclaredField("mH");
+
+        mHField.setAccessible(true);
+
+        Handler mH=(Handler)mHField.get(currentActivityThread);
+
+        //将我们的动态代理类 callback 设置给handler
+
+        Field mCallback=Handler.class.getDeclaredField("mCallback");
+        mCallback.setAccessible(true);
+        mCallback.set(mH,new ActivityThreadHandlerCallback(mH));
+
    }
 }
