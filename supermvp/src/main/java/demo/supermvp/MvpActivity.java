@@ -1,6 +1,7 @@
 package demo.supermvp;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -9,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by lichenxi on 2017/9/11.
  */
-
 public abstract class MvpActivity<V extends MvpView ,P extends MvpPresenter<V>>
         extends AppCompatActivity implements MvpDelegateCallback<V,P>  {
     protected P presenter;
@@ -26,7 +26,7 @@ public abstract class MvpActivity<V extends MvpView ,P extends MvpPresenter<V>>
         super.onResume();
         getMvpDelegate().onResume();
     }
-
+     //这里我们可以做数据的保存操作
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

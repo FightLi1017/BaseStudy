@@ -43,7 +43,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * <ol>
  * <li>Expose a public method, known as the <i>event handler</i>, which accepts a single argument of the type of event
  * desired;</li>
- * <li>Mark it with a {@link com.squareup.otto.Subscribe} annotation;</li>
+ * <li>Mark it with a {@link com.lcx.otto.Subscribe} annotation;</li>
  * <li>Pass itself to an Bus instance's {@link #register(Object)} method.
  * </li>
  * </ol>
@@ -76,7 +76,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *
  * <h2>Dead Events</h2>
  * If an event is posted, but no registered handlers can accept it, it is considered "dead."
- * To give the system a second chance to handle dead events, they are wrapped in an instance of {@link com.squareup.otto.DeadEvent} and
+ * To give the system a second chance to handle dead events, they are wrapped in an instance of {@link com.lcx.otto.DeadEvent} and
  * reposted.
  *
  * <p>This class is safe for concurrent use.
@@ -142,7 +142,8 @@ public class Bus {
    *  自定义标识符  线程执行者默认为主线程  这里ThreadEnforcer的作用 就是限制整个消息系统的处理 发生在哪个线程
    */
   public Bus(String identifier) {
-    this(ThreadEnforcer.MAIN, identifier);
+    this(ThreadEnforcer.Companion.getMAIN(), identifier);
+
   }
 
   /**
@@ -203,7 +204,7 @@ public class Bus {
     }
     //检测执行线程 默认在主线程里面
     enforcer.enforce(this);
-    //通过handlerFinder找到object下所有的生产者 加了@Produce注解的  key代表对应的生产者class value 为了方便方法调用封装类
+    //通过handlerFinder找到object下所有的生产者 加了@Produce注解的  key代表对应的生产者class（这里的class就是方法返回值） value 为了方便方法调用封装类
     Map<Class<?>, EventProducer> foundProducers = handlerFinder.findAllProducers(object);
     for (Class<?> type : foundProducers.keySet()) {
 
@@ -224,7 +225,7 @@ public class Bus {
       }
     }
 
-    //通过handlerFinder找到object下所有的生产者 加了@Subscribe注解的
+    //通过handlerFinder找到object下所有的生产者 加了@Subscribe注解的 class就是@Subscribe函数的第一个参数 只能有一个参数
     Map<Class<?>, Set<EventHandler>> foundHandlersMap = handlerFinder.findAllSubscribers(object);
     for (Class<?> type : foundHandlersMap.keySet()) {
       Set<EventHandler> handlers = handlersByType.get(type);
@@ -361,7 +362,7 @@ public class Bus {
       throw new NullPointerException("Event to post must not be null.");
     }
     enforcer.enforce(this);
-   //找到该事件和事件所有的父类
+    //找到该事件和事件所有的父类
     Set<Class<?>> dispatchTypes = flattenHierarchy(event.getClass());
 
     boolean dispatched = false;
@@ -405,12 +406,14 @@ public class Bus {
   protected void dispatchQueuedEvents() {
     // don't dispatch if we're already dispatching, that would allow reentrancy and out-of-order events. Instead, leave
     // the events to be dispatched after the in-progress dispatch is complete.
+    //这里控制的很好 就是一个线程里面 我们只启动一个队列  同一个线程下 多次调用post方法 队列只会启动一次
     if (isDispatching.get()) {
       return;
     }
-
+    //已经开始分发了
     isDispatching.set(true);
     try {
+      //内部维护一个阻塞队列 为空阻塞
       while (true) {
         EventWithHandler eventWithHandler = eventsToDispatch.get().poll();
         if (eventWithHandler == null) {
@@ -422,6 +425,7 @@ public class Bus {
         }
       }
     } finally {
+      //结束分发
       isDispatching.set(false);
     }
   }

@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.3'
+    buildToolsVersion '27.0.3'
 
 
     defaultConfig {
@@ -25,10 +25,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation  rootProject.ext.dependencies.rxJava2
-    implementation  rootProject.ext.dependencies.rxAndroid2
+    implementation rootProject.ext.dependencies.rxJava2
+    implementation rootProject.ext.dependencies.rxAndroid2
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
 repositories {
     mavenCentral()

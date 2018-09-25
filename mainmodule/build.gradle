@@ -1,18 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     defaultConfig {
         applicationId "com.mainmodule"
-        minSdkVersion 21
-        targetSdkVersion 26
+        minSdkVersion 23
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
-    sourceSets{
-        main{
-            res.srcDirs=['src/main/res','src/main/res-ad','src/main/res-hh']
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/res-ad', 'src/main/res-im']
         }
     }
     buildTypes {
@@ -31,11 +31,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
+    implementation "com.android.support:design:27.1.1"
+    implementation project(':supermvp')
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+
+    implementation "com.jakewharton:butterknife:8.0.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.0.0"
 
 
 }

@@ -36,7 +36,6 @@ public class MyAppllication extends Application {
         return PluginManager.getPluginResources();
     }
 
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

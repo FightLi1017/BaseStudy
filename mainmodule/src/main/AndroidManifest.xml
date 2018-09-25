@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.mainmodule">
 
+    <uses-permission android:name="android.permission.RECV_LCX"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".ViewDragerHelperActivity">
+
+        </activity>
+        <activity android:name=".testmvp.TestMvpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

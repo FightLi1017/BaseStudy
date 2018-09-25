@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PluginStudy</string>
     <string name="plug_text">插件学习</string>
+    <string name="aaa_1243">测试一下宿主哦aaa_1243不同模块的res文件</string>
 </resources>

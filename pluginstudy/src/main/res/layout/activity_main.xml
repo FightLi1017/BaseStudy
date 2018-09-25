@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="加载插件"
-        android:visibility="gone"
         android:id="@+id/loadplugin"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

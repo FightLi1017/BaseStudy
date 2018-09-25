@@ -2,5 +2,8 @@ include  ':groovy-life', ':pluginstudy', ':mainmodule'
 
 if(hasProperty('isLoadTest')?isLoadTest.toBoolean():false){
      include ':otto'
+     include ':navi-kotlin'
+     include ':supermvp'
+
 }
 

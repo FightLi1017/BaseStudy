@@ -99,6 +99,7 @@ public class FragmentMvpDelegateIml<V extends MvpView,P extends MvpPresenter<V>>
     private P createPresenter() {
         return  mDelegateCallback.createPresenter();
     }
+
     private P getPresenter() {
         P presenter = mDelegateCallback.getPresenter();
         if (presenter == null) {

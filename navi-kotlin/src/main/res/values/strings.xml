@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Navi-Kotlin</string>
+    <string name="navi_name">Navi</string>
 </resources>

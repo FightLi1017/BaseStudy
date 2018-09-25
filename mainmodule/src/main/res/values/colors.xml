@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="background_gray">#F8F8F8</color>
+    <color name="activity_large_divide">#ffcccccc</color>
+    <color name="edit_thank_txt_back_color">#F3F3F3</color>
+    <!-- 黑白色值 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="orange">#FFA500</color>
+    <color name="gray_light">#DFDFDF</color>
 </resources>

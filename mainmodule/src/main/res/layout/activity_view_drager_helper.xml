@@ -1,0 +1,20 @@
+
+<com.mainmodule.compant.VerticalDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:src="@drawable/aa"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:src="@drawable/bb"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+</com.mainmodule.compant.VerticalDrawerLayout>
