@@ -27,6 +27,9 @@ public class PresenterManager {
     final static String KEY_ACTIVITY_ID = "PresenterManagerActivityId";
     private final static Map<Activity, String> activityIdMap = new ArrayMap<>();
     private final static Map<String, ActivityScopedCache> activityScopedCacheMap = new ArrayMap<>();
+    /**
+     *  用这个接口的含义是 获取Activity的生命周期的状态 针对不同的的生命周期 做我们自己的事情
+     */
   static final Application.ActivityLifecycleCallbacks activityLifecycleCallbacks =new AbsLifecycleCallbacks() {
       @Override
       public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -112,7 +115,7 @@ public class PresenterManager {
          activityId= UUID.randomUUID().toString();
          activityIdMap.put(activity,activityId);
      }
-
+      //只在第一次保存Activity的时候注册一下 之后所有的都会走这个回调即可
       if (activityIdMap.size() == 1) {
           activity.getApplication().registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
       }

@@ -11,4 +11,11 @@
     <color name="black">#000000</color>
     <color name="orange">#FFA500</color>
     <color name="gray_light">#DFDFDF</color>
+
+
+    <color name="theme">#1BA9E1</color>
+    <color name="theme_dark">#007AAF</color>
+    <color name="accent">#6EB53B</color>
+    <color name="grey200">#EEEEEE</color>
+    <color name="grey500">#9E9E9E</color>
 </resources>

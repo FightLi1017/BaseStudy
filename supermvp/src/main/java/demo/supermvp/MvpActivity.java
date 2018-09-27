@@ -2,10 +2,12 @@ package demo.supermvp;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 /**
  * Created by lichenxi on 2017/9/11.
@@ -89,4 +91,6 @@ public abstract class MvpActivity<V extends MvpView ,P extends MvpPresenter<V>>
          }
       return mMvpDelegate;
     }
+
+
 }

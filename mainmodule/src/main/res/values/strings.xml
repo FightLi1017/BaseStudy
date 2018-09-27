@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">mainmodule</string>
     <string name="aaa_1243">测试一下插件aaa_1243不同模块的res文件</string>
+
+    <string name="opened">Opened</string>
+    <string name="closed">Closed</string>
 </resources>

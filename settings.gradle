@@ -1,4 +1,4 @@
-include  ':groovy-life', ':pluginstudy', ':mainmodule'
+include  ':groovy-life', ':pluginstudy', ':mainmodule', ':keyboard-detector'
 
 if(hasProperty('isLoadTest')?isLoadTest.toBoolean():false){
      include ':otto'
