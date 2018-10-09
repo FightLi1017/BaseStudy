@@ -14,7 +14,7 @@ public class Util {
    //采用反射调用isInBackStack方法
    public static  boolean isInBackStack(Fragment fragment){
        try {
-           Method method = fragment.getClass().getMethod("isInBackStack");
+           Method method = fragment.getClass().getDeclaredMethod("isInBackStack");
           return(boolean)method.invoke(fragment);
        } catch (Exception e) {
            e.printStackTrace();

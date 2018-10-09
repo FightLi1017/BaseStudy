@@ -1,5 +1,6 @@
 package demo.supermvp;
 
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.support.annotation.UiThread;
 
 import java.lang.ref.WeakReference;

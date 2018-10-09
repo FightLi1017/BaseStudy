@@ -1,9 +1,8 @@
 include  ':groovy-life', ':pluginstudy', ':mainmodule', ':keyboard-detector'
 
 if(hasProperty('isLoadTest')?isLoadTest.toBoolean():false){
-     include ':otto'
-     include ':navi-kotlin'
+//     include ':otto'
+//     include ':navi-kotlin'
      include ':supermvp'
 
 }
-

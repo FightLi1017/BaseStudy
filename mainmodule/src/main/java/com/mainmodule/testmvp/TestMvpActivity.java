@@ -1,11 +1,18 @@
 package com.mainmodule.testmvp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.mainmodule.multiProcessSharedPreferences.MultiProcessSharedActivity;
+import com.mainmodule.multiProcessSharedPreferences.SharedPreferenceUtil;
 import com.mainmodule.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +31,7 @@ public class TestMvpActivity extends MvpActivity<TestView, TestPresenter> implem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_mvp);
         ButterKnife.bind(this);
+
     }
 
     @NonNull
@@ -35,8 +43,8 @@ public class TestMvpActivity extends MvpActivity<TestView, TestPresenter> implem
     @OnClick(R.id.submit)
     public void onViewClicked() {
         //项目中使用 应该是进行格式的判断 空 正则等
-        presenter.login(text(username), text(editText));
-
+//        presenter.login(text(username), text(editText));
+        startActivity(new Intent(this, MultiProcessSharedActivity.class));
     }
 
     public String text(TextView view) {

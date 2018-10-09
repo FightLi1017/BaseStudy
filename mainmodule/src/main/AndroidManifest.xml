@@ -24,6 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".testDump.LeakActivity">
+        </activity>
+        <activity
+            android:process=".task1"
+            android:name=".multiProcessSharedPreferences.MultiProcessSharedActivity">
+        </activity>
     </application>
 
 </manifest>

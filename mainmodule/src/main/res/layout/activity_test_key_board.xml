@@ -59,7 +59,9 @@
             android:src="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="20dp"/>
-        <EditText style="@style/BaseEditText" />
+        <EditText
+            android:id="@+id/ddd"
+            style="@style/BaseEditText" />
 
     </FrameLayout>
 

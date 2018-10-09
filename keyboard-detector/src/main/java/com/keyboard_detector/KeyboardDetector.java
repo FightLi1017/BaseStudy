@@ -38,38 +38,33 @@ public class KeyboardDetector {
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         final int screenHeight=dm.heightPixels;
-        return Observable.create(new ObservableOnSubscribe<KeyboardStatus>() {
-         @Override
-         public void subscribe(final ObservableEmitter<KeyboardStatus> emitter){
-             final ViewTreeObserver.OnGlobalLayoutListener layoutListener=new ViewTreeObserver.OnGlobalLayoutListener() {
-                 @Override
-                 public void onGlobalLayout() {
-                     if (rootView==null){
-                         Log.w(TAG, "Root view is null");
-                         emitter.onNext(KeyboardStatus.CLOSED);
-                         return;
-                     }
-                     //获取当前RootView当前显示的大小
-                     Rect rect=new Rect();
-                     rootView.getWindowVisibleDisplayFrame(rect);
-                     int keyboardHeight = screenHeight-rect.height();
-                     if (keyboardHeight>screenHeight*MIN_KEYBOARD_HEIGHT_RATIO){
-                         emitter.onNext(KeyboardStatus.OPEN);
-                     }else {
-                         emitter.onNext(KeyboardStatus.CLOSED);
-                     }
-                 }
-             };
+        return Observable.create((ObservableOnSubscribe<KeyboardStatus>) emitter -> {
+            final ViewTreeObserver.OnGlobalLayoutListener layoutListener= () -> {
+                if (rootView==null){
+                    Log.w(TAG, "Root view is null");
+                    emitter.onNext(KeyboardStatus.CLOSED);
+                    return;
+                }
+                //获取当前RootView当前显示的大小
+                Rect rect=new Rect();
+                rootView.getWindowVisibleDisplayFrame(rect);
+                int keyboardHeight = screenHeight-rect.height();
+                if (keyboardHeight>screenHeight*MIN_KEYBOARD_HEIGHT_RATIO){
+                    emitter.onNext(KeyboardStatus.OPEN);
+                }else {
+                    emitter.onNext(KeyboardStatus.CLOSED);
+                }
+            };
 
-             rootView.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
-             emitter.setCancellable(new Cancellable() {
-                 @Override
-                 public void cancel() throws Exception {
-                     rootView.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
-                 }
-             });
+            rootView.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
 
-         }
-       }).distinctUntilChanged();
+            emitter.setCancellable(new Cancellable() {
+                @Override
+                public void cancel() throws Exception {
+                    rootView.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
+                }
+            });
+
+        }).distinctUntilChanged();
     }
 }

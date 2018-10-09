@@ -2,10 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     defaultConfig {
         applicationId "com.mainmodule"
-        minSdkVersion 23
+        minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
