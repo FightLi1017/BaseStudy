@@ -22,11 +22,16 @@ public class MainActivity extends Activity {
 //        tv.setGravity(Gravity.CENTER);
 //        tv.setTextSize(20);
 //        setContentView(tv);
-
         setContentView(R.layout.activity_main);
         mView =findViewById(R.id.tv);
-        ((ImageView)findViewById(R.id.imageView)).setImageResource(R.drawable.aa);
-//        registerReceiver()
+        findViewById(R.id.imageView).setOnClickListener(new  View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,TestKeyBoardActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -35,18 +40,12 @@ public class MainActivity extends Activity {
        
     }
 
-    @Override
-    public Resources getResources() {
-        if(getApplication() != null && getApplication().getResources() != null){
-            return getApplication().getResources();
-        }
-        return super.getResources();
-    }
-   class Re extends BroadcastReceiver{
+//    @Override
+//    public Resources getResources() {
+//        if(getApplication() != null && getApplication().getResources() != null){
+//            return getApplication().getResources();
+//        }
+//        return super.getResources();
+//    }
 
-        @Override
-       public void onReceive(Context context, Intent intent) {
-
-       }
-   }
 }

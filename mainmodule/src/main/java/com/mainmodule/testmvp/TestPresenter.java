@@ -14,7 +14,7 @@ public class TestPresenter extends MvpBasePresenter<TestView> {
 
     public void login(String name,String password){
           if (isViewAttached()){
-            getView().showLoading();
+              getView().showLoading();
           }
 
          new Handler().postDelayed(new Runnable() {

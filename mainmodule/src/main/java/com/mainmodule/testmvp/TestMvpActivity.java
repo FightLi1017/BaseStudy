@@ -66,9 +66,4 @@ public class TestMvpActivity extends MvpActivity<TestView, TestPresenter> implem
         submit.setText("登陆成功就可以了 哈哈");
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-    }
 }

@@ -55,7 +55,6 @@ public class KeyboardDetector {
                     emitter.onNext(KeyboardStatus.CLOSED);
                 }
             };
-
             rootView.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
 
             emitter.setCancellable(new Cancellable() {

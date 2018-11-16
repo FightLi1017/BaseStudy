@@ -55,8 +55,6 @@
         android:paddingTop="@dimen/space_16dp">
         <ImageView
             android:id="@+id/image"
-            android:visibility="gone"
-            android:src="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="20dp"/>
         <EditText

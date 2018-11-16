@@ -1,0 +1,25 @@
+this.project.afterEvaluate { project ->
+    def buildtask = project.tasks.getByName("assembleDebug")
+    if (buildtask == null) throw GradleException('the build task is not found')
+    buildtask.doLast {
+        copyApk.execute()
+    }
+}
+
+task copyApk{
+    doLast {
+        def sourcePath = this.buildDir.path + '/outputs/apk'
+        def desationPath = '/Users/lichenxi/Downloads/'
+        def command = "mv -f ${sourcePath} ${desationPath}"
+        println command
+        try{
+            exec {
+                executable 'bash'
+                args '-c', command
+            }
+        }catch (GradleException e){
+            println ' the command is execute failed. '
+        }
+    }
+}
+
