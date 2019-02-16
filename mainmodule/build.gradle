@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     compileOptions {
@@ -9,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.mainmodule"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion 27
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -33,22 +35,22 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "com.android.support:design:27.1.1"
+    implementation 'com.android.support:design:27.1.1'
     implementation project(':supermvp')
     implementation project(':keyboard-detector')
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
-    // Optional, if you use support library fragments:
-    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
-
-    implementation "com.jakewharton:butterknife:8.0.0"
-    annotationProcessor "com.jakewharton:butterknife-compiler:8.0.0"
-
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+//    // Optional, if you use support library fragments:
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+    implementation 'com.jakewharton:butterknife:8.8.0'
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.0"
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
 
 }
+
 //gradle 学习  文件拷贝 在项目中 一般做 Copy Apk的工作
 //copy{
 //   from file('build/outputs/apk/debug/mainmodule.apk')

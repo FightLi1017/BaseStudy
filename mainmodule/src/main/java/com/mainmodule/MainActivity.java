@@ -6,14 +6,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.RxActivityResult.ActivityResultInfo;
+import com.RxActivityResult.RxActivityResult;
+
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends Activity {
-    View mView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +29,6 @@ public class MainActivity extends Activity {
 //        tv.setTextSize(20);
 //        setContentView(tv);
         setContentView(R.layout.activity_main);
-        mView =findViewById(R.id.tv);
         findViewById(R.id.imageView).setOnClickListener(new  View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,12 +45,12 @@ public class MainActivity extends Activity {
        
     }
 
-//    @Override
-//    public Resources getResources() {
-//        if(getApplication() != null && getApplication().getResources() != null){
-//            return getApplication().getResources();
-//        }
-//        return super.getResources();
-//    }
+    @Override
+    public Resources getResources() {
+        if(getApplication() != null && getApplication().getResources() != null){
+            return getApplication().getResources();
+        }
+        return super.getResources();
+    }
 
 }

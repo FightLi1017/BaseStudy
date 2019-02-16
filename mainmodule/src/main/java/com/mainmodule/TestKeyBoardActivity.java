@@ -27,7 +27,7 @@ public class TestKeyBoardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mKeyboardDetector = new KeyboardDetector(this);
         mCompositeDisposable.add(mKeyboardDetector.observe().subscribe(status -> {
-            switch (status) {
+            switch (status.status) {
                 case OPEN:
                     tvStatus.setText(getString(R.string.opened));
                     break;

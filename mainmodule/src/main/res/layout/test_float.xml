@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+   <com.mainmodule.windowManagerDemo.TextProgress
+       android:id="@+id/progress"
+       android:max="100"
+       android:progress="45"
+       style="@android:style/Widget.ProgressBar.Horizontal"
+       android:progressBackgroundTint="@color/no_yellow"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" />
+</LinearLayout>

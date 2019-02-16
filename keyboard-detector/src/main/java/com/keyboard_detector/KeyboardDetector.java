@@ -28,21 +28,25 @@ public class KeyboardDetector {
     private static final String  TAG = "KeyboardDetector";
     private static final double MIN_KEYBOARD_HEIGHT_RATIO = 0.15;
 
-    public Observable<KeyboardStatus> observe(){
+    public Observable<Keyboard> observe(){
         if (activity == null) {
             Log.w(TAG, "Activity is null");
-            return Observable.just(KeyboardStatus.CLOSED);
+            Keyboard keyboard=new Keyboard();
+            keyboard.status=KeyboardStatus.CLOSED;
+            return Observable.just(keyboard);
         }
         final View rootView=activity.findViewById(android.R.id.content);
         //获取当前windows的高度
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         final int screenHeight=dm.heightPixels;
-        return Observable.create((ObservableOnSubscribe<KeyboardStatus>) emitter -> {
+        return Observable.create((ObservableOnSubscribe<Keyboard>) emitter -> {
             final ViewTreeObserver.OnGlobalLayoutListener layoutListener= () -> {
                 if (rootView==null){
                     Log.w(TAG, "Root view is null");
-                    emitter.onNext(KeyboardStatus.CLOSED);
+                    Keyboard keyboard=new Keyboard();
+                    keyboard.status=KeyboardStatus.CLOSED;
+                    emitter.onNext(keyboard);
                     return;
                 }
                 //获取当前RootView当前显示的大小
@@ -50,9 +54,14 @@ public class KeyboardDetector {
                 rootView.getWindowVisibleDisplayFrame(rect);
                 int keyboardHeight = screenHeight-rect.height();
                 if (keyboardHeight>screenHeight*MIN_KEYBOARD_HEIGHT_RATIO){
-                    emitter.onNext(KeyboardStatus.OPEN);
+                    Keyboard keyboard=new Keyboard();
+                    keyboard.status=KeyboardStatus.OPEN;
+                    keyboard.height=keyboardHeight;
+                    emitter.onNext(keyboard);
                 }else {
-                    emitter.onNext(KeyboardStatus.CLOSED);
+                    Keyboard keyboard=new Keyboard();
+                    keyboard.status=KeyboardStatus.CLOSED;
+                    emitter.onNext(keyboard);
                 }
             };
             rootView.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);

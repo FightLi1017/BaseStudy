@@ -1,9 +1,12 @@
-include  ':groovy-life', ':pluginstudy', ':mainmodule', ':keyboard-detector'
-
+include   ':mainmodule', ':processbridge'
+include ':keyboard-detector',':supermvp'
+include ':birty:volley'
 if(hasProperty('isLoadTest')?isLoadTest.toBoolean():false){
 //     include ':otto'
 //     include ':navi-kotlin'
-     include ':supermvp'
-     include ':birty:volley'
+
      include ':birty:disklrucache'
+     include ':pluginstudy'
+     include ':supermvp'
+     include ':groovy-life'
 }

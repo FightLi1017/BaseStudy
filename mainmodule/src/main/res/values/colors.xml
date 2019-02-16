@@ -11,7 +11,8 @@
     <color name="black">#000000</color>
     <color name="orange">#FFA500</color>
     <color name="gray_light">#DFDFDF</color>
-
+    <color name="yellow">#FFDD00</color>
+    <color name="no_yellow">#FFFCE6</color>
 
     <color name="theme">#1BA9E1</color>
     <color name="theme_dark">#007AAF</color>
